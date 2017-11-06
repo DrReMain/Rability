@@ -12,17 +12,17 @@ import routes from './routes';
 import { API_URI } from '../config/env';
 
 async function fetchAllData(batch, dispatch, token) {
+  // 请求初始数据的actions
   const needs =
       batch.map(({ route, match }) => {
-
         match.params = Object.assign({}, match.params, { token });
         return { component: route.component, params: match.params };
-
-      }).filter(x => x.component.fetchData).reduce((prev, current) => {
-
-        return current.component.fetchData(current.params).concat(prev);
-
-      }, []).map(x => dispatch(x));
+      }).
+          filter(needComponent => needComponent.component.fetchData).
+          reduce((prev, current) => {
+            return current.component.fetchData(current.params).concat(prev);
+          }, []).
+          map(action => dispatch(action));
 
   return await Promise.all(needs);
 }
