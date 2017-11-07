@@ -57,6 +57,7 @@ function renderFullPage(renderedContent, initialState) {
 }
 
 export default function render(req, res) {
+
   const cookies = new Cookies(req.headers.cookie);
   const history = createMemoryHistory();
   const token = cookies.get('token') || null;

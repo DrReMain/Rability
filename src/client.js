@@ -1,20 +1,25 @@
-const a = 'a';
-console.log(a);
-
 import React from 'react';
-import { render } from 'react-dom';
-import { createStore } from 'redux';
-import { connect } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { routerReducer } from 'react-router-redux';
+import { hydrate } from 'react-dom';
 import { renderRoutes } from 'react-router-config';
+import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import { Provider } from 'react-redux';
+import { createBrowserHistory } from 'history';
 
-const style = {
-  fontSize: '20px',
-  fontWeight: 'bold',
-};
+import configureStore from './store/configureStore';
+import routes from './routes';
 
-render(
-    <h1 style={{ ...style }}>hello</h1>,
+const history = createBrowserHistory();
+const initialState = window.__INITIAL_STATE__;
+const store = configureStore(initialState, history);
+
+hydrate(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <BrowserRouter>
+          {renderRoutes(routes)}
+        </BrowserRouter>
+      </ConnectedRouter>
+    </Provider>,
     document.getElementById('root'),
 );

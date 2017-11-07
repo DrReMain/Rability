@@ -5,7 +5,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const favicon = require('serve-favicon');
 const serverRender = require('./dist/server');
-const {isDev, LISTEN_PORT} = require('./config/env');
+const { isDev, LISTEN_PORT } = require('./config/env');
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -22,7 +22,8 @@ if (isDev) {
     },
   }));
   app.use(webpackHotMiddleware(compiler));
-} else {
+}
+else {
   app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')));
   app.set('views', path.join(__dirname, 'dist'));
   app.set('view engine', 'ejs');

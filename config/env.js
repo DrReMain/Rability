@@ -7,15 +7,21 @@ const env = {
   prodCookeDomain: '.jackhu.top',
 };
 
-export const isDev = process.env.NODE_ENV === 'development';
-export const LISTEN_PORT = process.env.PORT || isDev
-    ? env.devPort
-    : env.prodPort;
+const isDev = process.env.NODE_ENV === 'development';
 
-export const API_URI = process.env.NODE_ENV === 'development'
+const LISTEN_PORT = process.env.PORT || (isDev ? env.devPort : env.prodPort);
+
+const API_URI = process.env.NODE_ENV === 'development'
     ? env.devApiURI
     : env.prodApiURI;
 
-export const CookieDomain = process.env.NODE_ENV === 'development'
+const CookieDomain = process.env.NODE_ENV === 'development'
     ? env.devCookieDomain
     : env.prodCookeDomain;
+
+module.exports = {
+  isDev,
+  LISTEN_PORT,
+  API_URI,
+  CookieDomain,
+};
