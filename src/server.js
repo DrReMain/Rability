@@ -9,7 +9,6 @@ import { fromJS } from 'immutable';
 
 import configureStore from './store/configureStore';
 import routes from './routes';
-import { API_URI } from '../config/env';
 
 async function fetchAllData(batch, dispatch, token) {
   // 请求初始数据的actions

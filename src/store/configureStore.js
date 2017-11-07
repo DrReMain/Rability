@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import { Iterable } from 'immutable';
-import promiseMiddleware from '../api/promiseMiddleware';
+import promiseMiddleware from '../middleware/promiseMiddleware';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState, history) {

@@ -5,7 +5,10 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const favicon = require('serve-favicon');
 const serverRender = require('./dist/server');
-const { isDev, LISTEN_PORT } = require('./config/env');
+
+const isDev = process.env.NODE_ENV === 'development';
+
+const LISTEN_PORT = process.env.PORT || (isDev ? 3000 : 8300);
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'dist')));
