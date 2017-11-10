@@ -1,11 +1,11 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
-import { matchRoutes, renderRoutes } from 'react-router-config';
-import { createMemoryHistory } from 'history';
-import { Provider } from 'react-redux';
+import {renderToString} from 'react-dom/server';
+import {StaticRouter} from 'react-router-dom';
+import {matchRoutes, renderRoutes} from 'react-router-config';
+import {createMemoryHistory} from 'history';
+import {Provider} from 'react-redux';
 import Cookies from 'universal-cookie';
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
 
 import configureStore from './store/configureStore';
 import routes from './routes';
@@ -13,9 +13,9 @@ import routes from './routes';
 async function fetchAllData(batch, dispatch, token) {
   // 请求初始数据的actions
   const needs =
-      batch.map(({ route, match }) => {
-        match.params = Object.assign({}, match.params, { token });
-        return { component: route.component, params: match.params };
+      batch.map(({route, match}) => {
+        match.params = Object.assign({}, match.params, {token});
+        return {component: route.component, params: match.params};
       }).
           filter(needComponent => needComponent.component.fetchData).
           reduce((prev, current) => {
@@ -89,7 +89,7 @@ export default function render(req, res) {
     else {
       return res.render(
           'index',
-          { __html__: componentHTML, __state__: JSON.stringify(initialState) });
+          {__html__: componentHTML, __state__: JSON.stringify(initialState)});
     }
 
   }).catch(err => {
@@ -98,7 +98,7 @@ export default function render(req, res) {
       return res.status(200).send(renderFullPage('', {}));
     }
     else {
-      return res.render('index', { __html__: '', __state__: {} });
+      return res.render('index', {__html__: '', __state__: {}});
     }
   });
 }
