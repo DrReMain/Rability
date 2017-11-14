@@ -62,7 +62,6 @@ export default function render(req, res) {
   const token = cookies.get('token') || null;
   const store = configureStore({}, history);
   const batch = matchRoutes(routes, req.url);
-
   return fetchAllData(batch, store.dispatch, token).then(function(data) {
     const context = {};
     const initialState = store.getState();

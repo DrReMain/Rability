@@ -28,3 +28,84 @@ function loginSuccess(token) {
     token,
   };
 }
+
+export function localLogin(userInfo) {
+  return (dispatch, getState) => {
+    return api.localLogin(userInfo).
+        then(response => ({json: response.data, status: response.statusText})).
+        then(({json, status}) => {
+          if (status !== 'OK') {
+            dispatch(getCaptchaUrl());
+            return dispatch(showMsg(json.data.error_msg || '登录失败'));
+          }
+          //得到token,并存储
+          saveCookie('token', json.token);
+          //获取用户信息
+          dispatch(getUserInfo(json.token));
+          dispatch(loginSuccess(json.token));
+          dispatch(getCaptchaUrl());
+          dispatch(showMsg('登录成功,欢迎光临!', 'success'));
+          dispatch(push('/'));
+          window.location.reload();
+        }).
+        catch(err => {
+          const error_msg =
+              err.response
+                  ? (err.response.data && err.response.data.error_msg)
+                  ? err.response.data.error_msg
+                  : '登录失败'
+                  : '登录失败';
+          //登录异常
+          dispatch(getCaptchaUrl());
+          return dispatch(showMsg(error_msg));
+        });
+  };
+}
+
+//获取用户信息
+export const getUserInfo = (token = getCookie('token')) => {
+  return {
+    type: types.GET_USERINFO,
+    promise: api.getMe({
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    }),
+  };
+};
+
+//退出登录
+export function logout() {
+  return dispatch => {
+    signOut();
+    dispatch({type: types.LOGOUT_USER});
+    window.location.pathname = '/';
+  };
+}
+
+//修改用户资料
+function successUpdateUser(user) {
+  return {
+    type: types.UPDATE_USER_SUCCESS,
+    user: user,
+  };
+}
+
+export function updateUser(userInfo) {
+  return (dispatch, getState) => {
+    return api.mdUser(userInfo).
+        then(response => ({json: response.data, status: response.statusText})).
+        then(({json, status}) => {
+          if (status !== 'OK') {
+            return dispatch(
+                showMsg(json.data && json.data.error_msg || '更新用户资料失败'));
+          }
+          dispatch(showMsg('更新用户资料成功', 'success'));
+          return dispatch(successUpdateUser(json.data));
+
+        }).
+        catch(err => {
+          return dispatch(showMsg(err.response.data.error_msg || '更新用户资料失败'));
+        });
+  };
+}

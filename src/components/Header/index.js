@@ -51,8 +51,7 @@ export default class Header extends Component {
               </a>
               <a className="navbar-item change-mode" href="javascript:;"
                  onClick={this.handleChangeMode}>
-                {(styleMode === 'day-mode') ? <i className="fa fa-sun-o"></i> :
-                    <i className="fa fa-moon-o"></i>}
+                <i className="fa fa-sun-o"/>
               </a>
             </div>
             {(auth.token && auth.user) ? <div>

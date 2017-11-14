@@ -1,11 +1,15 @@
 import NotFound from './components/NotFound';
-
-
+import App from './components/App';
 
 const routes = [
   {
-    path: '*',
-    component: NotFound,
+    component: App,
+    routes: [
+      {
+        path: '*',
+        component: NotFound,
+      },
+    ],
   },
 ];
 
