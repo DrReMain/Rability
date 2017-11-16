@@ -9,6 +9,7 @@ import {fromJS} from 'immutable';
 
 import configureStore from './store/configureStore';
 import routes from './routes';
+import { API_ROOT } from './config'
 
 async function fetchAllData(batch, dispatch, token) {
   // 请求初始数据的actions
@@ -60,7 +61,15 @@ export default function render(req, res) {
   const cookies = new Cookies(req.headers.cookie);
   const history = createMemoryHistory();
   const token = cookies.get('token') || null;
-  const store = configureStore({}, history);
+  const store = configureStore({
+    auth: fromJS({
+      token: token,
+      user: null,
+    }),
+    globalVal: fromJS({
+      captchaUrl: API_ROOT + 'users/getCaptcha?',
+    }),
+  }, history);
   const batch = matchRoutes(routes, req.url);
   return fetchAllData(batch, store.dispatch, token).then(function(data) {
     const context = {};
