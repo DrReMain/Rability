@@ -1,52 +1,52 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { routerMiddleware } from 'react-router-redux';
-import { createLogger } from 'redux-logger';
-import { Iterable } from 'immutable';
-import promiseMiddleware from '../middleware/promiseMiddleware';
-import rootReducer from '../reducers';
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import { routerMiddleware } from 'react-router-redux'
+import { createLogger } from 'redux-logger'
+import { Iterable } from 'immutable'
+import promiseMiddleware from '../middleware/promiseMiddleware'
+import rootReducer from '../reducers'
 
 export default function configureStore(initialState, history) {
 
   const stateTransformer = (state) => {
-    const newState = {};
+    const newState = {}
     Object.keys(state).forEach(key => {
       if (Iterable.isIterable(state[key])) {
-        newState[key] = state[key].toJS();
+        newState[key] = state[key].toJS()
       }
       else {
-        newState[key] = state[key];
+        newState[key] = state[key]
       }
-    });
-    return newState;
-  };
-  const middleware = [thunk, promiseMiddleware, routerMiddleware(history)];
+    })
+    return newState
+  }
+  const middleware = [thunk, promiseMiddleware, routerMiddleware(history)]
 
-  let finalCreateStore;
+  let finalCreateStore
   if (_DEVCLIENT) {
     if (_DEVLOGGER) {
-      middleware.push(createLogger({ stateTransformer }));
+      middleware.push(createLogger({ stateTransformer }))
     }
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
-        compose;
+      compose
     finalCreateStore = composeEnhancers(
-        applyMiddleware(...middleware),
-    );
+      applyMiddleware(...middleware),
+    )
   }
   else {
     finalCreateStore = compose(
-        applyMiddleware(...middleware),
-    );
+      applyMiddleware(...middleware),
+    )
   }
 
-  const store = finalCreateStore(createStore)(rootReducer, initialState);
+  const store = finalCreateStore(createStore)(rootReducer, initialState)
 
   if (module.hot) {
     module.hot.accept('../reducers', () => {
-      const nextReducer = require('../reducers');
-      store.replaceReducer(nextReducer);
-    });
+      const nextReducer = require('../reducers')
+      store.replaceReducer(nextReducer)
+    })
   }
 
-  return store;
+  return store
 }

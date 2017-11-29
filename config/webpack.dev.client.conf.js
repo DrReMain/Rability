@@ -1,8 +1,8 @@
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const PATHS = require('./paths');
-const baseWebpackConfig = require('./webpack.base.conf');
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const PATHS = require('./paths')
+const baseWebpackConfig = require('./webpack.base.conf')
 
 module.exports = merge(baseWebpackConfig, {
   devtool: 'cheap-module-source-map',
@@ -73,4 +73,4 @@ module.exports = merge(baseWebpackConfig, {
       },
     ],
   },
-});
+})

@@ -1,14 +1,15 @@
-import NotFound from './components/NotFound';
-import App from './components/App';
+import NotFound from './components/NotFound'
+import App from './components/App'
 import Home from './components/Home'
 
 const routes = [
   {
     component: App,
     routes: [
-      { path: '/',
+      {
+        path: '/',
         exact: true,
-        component: Home
+        component: Home,
       },
       {
         path: '*',
@@ -16,6 +17,6 @@ const routes = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes

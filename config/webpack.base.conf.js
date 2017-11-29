@@ -1,4 +1,4 @@
-const PATHS = require('./paths');
+const PATHS = require('./paths')
 
 module.exports = {
   module: {
@@ -60,7 +60,7 @@ module.exports = {
               },
             ],
           },
-          {test: /\.json$/, loader: 'json-loader'},
+          { test: /\.json$/, loader: 'json-loader' },
         ],
       },
     ],
@@ -69,4 +69,4 @@ module.exports = {
   resolve: {
     extensions: ['.js', 'jsx', '.ts', '.tsx'],
   },
-};
+}

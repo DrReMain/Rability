@@ -1,10 +1,10 @@
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJSPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-const PATHS = require('./paths');
-const baseWebpackConfig = require('./webpack.base.conf');
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJSPlugin = require('webpack/lib/optimize/UglifyJsPlugin')
+const PATHS = require('./paths')
+const baseWebpackConfig = require('./webpack.base.conf')
 
 module.exports = [
   merge(baseWebpackConfig, {
@@ -60,7 +60,7 @@ module.exports = [
         },
       }),
       new UglifyJSPlugin({
-        compress: {warnings: false},
+        compress: { warnings: false },
       }),
     ],
     module: {
@@ -114,9 +114,9 @@ module.exports = [
         },
       }),
       new UglifyJSPlugin({
-        compressor: {warnings: false},
+        compressor: { warnings: false },
       }),
       new webpack.IgnorePlugin(/vertx/),
     ],
   }),
-];
+]

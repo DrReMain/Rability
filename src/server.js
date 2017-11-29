@@ -1,30 +1,30 @@
-import React from 'react';
-import {renderToString} from 'react-dom/server';
-import {StaticRouter} from 'react-router-dom';
-import {matchRoutes, renderRoutes} from 'react-router-config';
-import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
-import Cookies from 'universal-cookie';
-import {fromJS} from 'immutable';
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom'
+import { matchRoutes, renderRoutes } from 'react-router-config'
+import { createMemoryHistory } from 'history'
+import { Provider } from 'react-redux'
+import Cookies from 'universal-cookie'
+import { fromJS } from 'immutable'
 
-import configureStore from './store/configureStore';
-import routes from './routes';
+import configureStore from './store/configureStore'
+import routes from './routes'
 import { API_ROOT } from './config'
 
 async function fetchAllData(batch, dispatch, token) {
   // 请求初始数据的actions
   const needs =
-      batch.map(({route, match}) => {
-        match.params = Object.assign({}, match.params, {token});
-        return {component: route.component, params: match.params};
-      }).
-          filter(needComponent => needComponent.component.fetchData).
-          reduce((prev, current) => {
-            return current.component.fetchData(current.params).concat(prev);
-          }, []).
-          map(action => dispatch(action));
+    batch.map(({ route, match }) => {
+      match.params = Object.assign({}, match.params, { token })
+      return { component: route.component, params: match.params }
+    }).
+      filter(needComponent => needComponent.component.fetchData).
+      reduce((prev, current) => {
+        return current.component.fetchData(current.params).concat(prev)
+      }, []).
+      map(action => dispatch(action))
 
-  return await Promise.all(needs);
+  return await Promise.all(needs)
 }
 
 function renderFullPage(renderedContent, initialState) {
@@ -53,14 +53,14 @@ function renderFullPage(renderedContent, initialState) {
       <script type="text/javascript" charset="utf-8" src="/bundle.js"></script>
     </body>
   </html>
-  `;
+  `
 }
 
 export default function render(req, res) {
 
-  const cookies = new Cookies(req.headers.cookie);
-  const history = createMemoryHistory();
-  const token = cookies.get('token') || null;
+  const cookies = new Cookies(req.headers.cookie)
+  const history = createMemoryHistory()
+  const token = cookies.get('token') || null
   const store = configureStore({
     auth: fromJS({
       token: token,
@@ -69,44 +69,44 @@ export default function render(req, res) {
     globalVal: fromJS({
       captchaUrl: API_ROOT + 'users/getCaptcha?',
     }),
-  }, history);
-  const batch = matchRoutes(routes, req.url);
+  }, history)
+  const batch = matchRoutes(routes, req.url)
   return fetchAllData(batch, store.dispatch, token).then(function(data) {
-    const context = {};
-    const initialState = store.getState();
+    const context = {}
+    const initialState = store.getState()
     const InitialView = (
-        <Provider store={store}>
-          <StaticRouter location={req.url} context={context}>
-            {renderRoutes(routes)}
-          </StaticRouter>
-        </Provider>
-    );
-    const componentHTML = renderToString(InitialView);
+      <Provider store={store}>
+        <StaticRouter location={req.url} context={context}>
+          {renderRoutes(routes)}
+        </StaticRouter>
+      </Provider>
+    )
+    const componentHTML = renderToString(InitialView)
 
     if (context.status === 404) {
-      res.status(404);
+      res.status(404)
     }
     if (context.status === 302) {
-      return res.redirect(302, context.url);
+      return res.redirect(302, context.url)
     }
 
     if (_DEVSERVER) {
-      res.set('Content-Type', 'text/html');
-      return res.status(200).send(renderFullPage(componentHTML, initialState));
+      res.set('Content-Type', 'text/html')
+      return res.status(200).send(renderFullPage(componentHTML, initialState))
     }
     else {
       return res.render(
-          'index',
-          {__html__: componentHTML, __state__: JSON.stringify(initialState)});
+        'index',
+        { __html__: componentHTML, __state__: JSON.stringify(initialState) })
     }
 
   }).catch(err => {
     if (_DEVSERVER) {
-      res.set('Content-Type', 'text/html');
-      return res.status(200).send(renderFullPage('', {}));
+      res.set('Content-Type', 'text/html')
+      return res.status(200).send(renderFullPage('', {}))
     }
     else {
-      return res.render('index', {__html__: '', __state__: {}});
+      return res.render('index', { __html__: '', __state__: {} })
     }
-  });
+  })
 }

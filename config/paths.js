@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-const path = require('path');
-const fs = require('fs');
+const path = require('path')
+const fs = require('fs')
 
-const appDirectory = fs.realpathSync(process.cwd());
+const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = relativePath =>
-    path.resolve(appDirectory, relativePath);
+  path.resolve(appDirectory, relativePath)
 
 module.exports = {
   root: resolveApp('/'),
@@ -15,4 +15,4 @@ module.exports = {
   distSrc: resolveApp('dist'),
   favicon: resolveApp('src/favicon.ico'),
   html: resolveApp('src/index.html'),
-};
+}

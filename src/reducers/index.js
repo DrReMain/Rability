@@ -1,15 +1,15 @@
-import {combineReducers} from 'redux';
-import {routerReducer} from 'react-router-redux';
-import {reducer as formReducer} from 'redux-form';
-import {articleList, articleDetail, prenextArticle} from './article';
-import tagList from './tagList';
-import commentList from './comment';
-import auth from './auth';
-import options from './options';
-import apps from './apps';
-import sns from './sns';
-import showmsg from './showmsg';
-import globalVal from './globalVal';
+import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
+import { reducer as formReducer } from 'redux-form'
+import { articleList, articleDetail, prenextArticle } from './article'
+import tagList from './tagList'
+import commentList from './comment'
+import auth from './auth'
+import options from './options'
+import apps from './apps'
+import sns from './sns'
+import showmsg from './showmsg'
+import globalVal from './globalVal'
 
 const rootReducer = combineReducers({
   globalVal,
@@ -25,6 +25,6 @@ const rootReducer = combineReducers({
   showmsg,
   router: routerReducer,
   form: formReducer,
-});
+})
 
-export default rootReducer;
+export default rootReducer

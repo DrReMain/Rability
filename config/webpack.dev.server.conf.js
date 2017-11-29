@@ -1,7 +1,7 @@
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const PATHS = require('./paths');
-const baseWebpackConfig = require('./webpack.base.conf');
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const PATHS = require('./paths')
+const baseWebpackConfig = require('./webpack.base.conf')
 
 module.exports = merge(baseWebpackConfig, {
   name: 'server',
@@ -28,4 +28,4 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new webpack.IgnorePlugin(/vertx/),
   ],
-});
+})

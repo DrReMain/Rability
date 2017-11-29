@@ -1,6 +1,28 @@
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+*.pid
+.tmp
+
+################
+.DS_Store
+node_modules/
+build.commond.md
+#dist
+
+##push server
+#/*
+#!/dist
+#!server.js
+#!/logs
+#!package.json
+#!process.json
+#*.log
+#*.pid
+
+
+###############
 .idea/
 .vscode/
-
-.DS_Store
-
-node_modules/

@@ -1,28 +1,28 @@
-import Cookies from 'universal-cookie';
-import {CookieDomain} from '../config';
+import Cookies from 'universal-cookie'
+import { CookieDomain } from '../config'
 
-const cookie = new Cookies();
-let cookieConfig = {};
+const cookie = new Cookies()
+let cookieConfig = {}
 if (CookieDomain !== '') {
-  cookieConfig = {domain: CookieDomain};
+  cookieConfig = { domain: CookieDomain }
 }
 
 export function saveCookie(name, value) {
-  cookie.set(name, value, cookieConfig);
+  cookie.set(name, value, cookieConfig)
 }
 
 export function getCookie(name) {
-  return cookie.get(name);
+  return cookie.get(name)
 }
 
 export function removeCookie(name) {
-  cookie.remove(name, cookieConfig);
+  cookie.remove(name, cookieConfig)
 }
 
 export function signOut() {
-  cookie.remove('token', cookieConfig);
+  cookie.remove('token', cookieConfig)
 }
 
 export function isLogin() {
-  return !!cookie.get('token');
+  return !!cookie.get('token')
 }

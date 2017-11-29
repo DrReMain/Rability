@@ -5,58 +5,58 @@ import {
   TagResource,
   MobileResource,
   CommentResource,
-} from './resources';
+} from './resources'
 
 export default {
   localLogin: function(data) {
-    return AuthResource('post', 'local', data);
+    return AuthResource('post', 'local', data)
   },
   getSnsLogins: function() {
-    return UserResource('get', 'snsLogins');
+    return UserResource('get', 'snsLogins')
   },
   getMe: function(data) {
-    return UserResource('get', 'me', data);
+    return UserResource('get', 'me', data)
   },
   mdUser: function(data) {
-    return UserResource('put', 'mdUser', data);
+    return UserResource('put', 'mdUser', data)
   },
   getTagList: function() {
-    return TagResource('get', 'getFrontTagList');
+    return TagResource('get', 'getFrontTagList')
   },
   getApps: function() {
-    return MobileResource('get', 'getApps');
+    return MobileResource('get', 'getApps')
   },
   //article
   getIndexImage: function() {
-    return ArticleResource('get', 'getIndexImage');
+    return ArticleResource('get', 'getIndexImage')
   },
   getArticleList: function(options) {
     return ArticleResource('get', 'getFrontArticleList', null,
-        {params: options});
+      { params: options })
   },
   getArticleDetaile: function(id) {
-    return ArticleResource('get', id, 'getFrontArticle');
+    return ArticleResource('get', id, 'getFrontArticle')
   },
   toggleLike: function(id) {
-    return ArticleResource('put', id, 'toggleLike');
+    return ArticleResource('put', id, 'toggleLike')
   },
   getPrenext: function(id, options) {
-    return ArticleResource('get', id, 'getPrenext', {params: options});
+    return ArticleResource('get', id, 'getPrenext', { params: options })
   },
   //comment
   getCommentList: function(id) {
-    return CommentResource('get', id, 'getFrontCommentList');
+    return CommentResource('get', id, 'getFrontCommentList')
   },
   addNewComment: function(data) {
-    return CommentResource('post', 'addNewComment', null, data);
+    return CommentResource('post', 'addNewComment', null, data)
   },
   addNewReply: function(id, data) {
-    return CommentResource('post', id, 'addNewReply', data);
+    return CommentResource('post', id, 'addNewReply', data)
   },
   delComment: function(id) {
-    return CommentResource('delete', id);
+    return CommentResource('delete', id)
   },
   delReply: function(id, data) {
-    return CommentResource('delete', id, 'delReply', data);
+    return CommentResource('delete', id, 'delReply', data)
   },
-};
+}
