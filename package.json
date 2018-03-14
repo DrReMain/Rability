@@ -1,0 +1,28 @@
+{
+  "name": "Rability",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:DrReMain/Rability.git",
+  "author": "luozx <remain@divergers.com>",
+  "license": "MIT",
+  "keywords": [
+    "webpack",
+    "express",
+    "react",
+    "universal",
+    "hot reloading",
+    "react-hot-reloader",
+    "redux"
+  ],
+  "dependencies": {
+    "react": "^16.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.1.1",
+    "webpack-dev-middleware": "^3.0.1",
+    "webpack-hot-middleware": "^2.21.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
