@@ -1,9 +1,0 @@
-{
-  "verbose": false,
-  "watch": [
-    "src/server.js",
-    "src/routes.js",
-    "server.js",
-    "config"
-  ]
-}
