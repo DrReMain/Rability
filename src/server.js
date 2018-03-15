@@ -27,7 +27,8 @@ import config from 'config'
 // import asyncMatchRoutes from 'utils/asyncMatchRoutes'
 // import { ReduxAsyncConnect, Provider } from 'components'
 
-const chunkPath = path.join(
-  __dirname, '..', 'static', 'dist', 'loadable-chunks.json')
+const chunkPath = path.join(__dirname, '..', 'static', 'dist', 'loadable-chunks.json')
 
 process.on('unhandleRejection', error => console.error(error))
+
+

@@ -29,6 +29,9 @@ export default class Html extends Component {
     } = this.props
     const head = Helmet.renderStatic()
 
+    console.log('----------------------')
+    console.log(this.props)
+    console.log('----------------------')
     return (
       <html lang="en">
       <head>
