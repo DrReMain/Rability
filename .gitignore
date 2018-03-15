@@ -1,6 +1,7 @@
 # Logs
 *.log
 npm-debug.log*
+yarn-error.log*
 
 # Runtime data
 *.pid
@@ -9,20 +10,21 @@ npm-debug.log*
 ################
 .DS_Store
 node_modules/
+package-lock.json
 build.commond.md
-#dist
-
-##push server
-#/*
-#!/dist
-#!server.js
-#!/logs
-#!package.json
-#!process.json
-#*.log
-#*.pid
-
 
 ###############
 .idea/
 .vscode/
+
+#dist
+###############
+static/dist/
+webpack-assets.json
+webpack-stats.json
+webpack/dlls/*.json
+api/**/*.nedb
+
+###############
+*.report.html
+coverage/

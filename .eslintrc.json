@@ -1,85 +1,64 @@
 {
   "extends": "airbnb",
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module"
-  },
   "env": {
     "browser": true,
     "node": true,
+    "mocha": true,
     "es6": true
   },
+  "rules": {
+    "semi": "off",
+    "arrow-parens": ["error", "as-needed"],
+    "comma-dangle": ["error", "only-multiline"],
+    "consistent-return": "off",
+    "global-require": "off",
+    "indent": ["error", 2, {"SwitchCase": 1}],
+    "max-len": ["error", 120, {"ignorePattern": "[^\\n\\r]{115,120}\\{(?:'|\") (?:'|\")\\}"}],
+    "no-alert": "off",
+    "no-confusing-arrow": "off",
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "prefer-promise-reject-errors": "warn",
+    "prefer-template": "warn",
+    "react/forbid-prop-types": "warn",
+    "react/jsx-closing-tag-location": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-no-target-blank": "warn",
+    "react/no-multi-comp": ["error", {"ignoreStateless": true}],
+    "react/no-unescaped-entities": "off",
+    "react/prefer-stateless-function": "warn",
+    "jsx-a11y/label-has-for": ["error", {"allowChildren": true}],
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["to"],
+        "aspects": ["noHref", "invalidHref", "preferButton"]
+      }
+    ],
+    "import/default": "off",
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-named-as-default": "error",
+    "import/no-unresolved": "off"
+  },
   "plugins": [
-    "import",
     "react",
-    "jsx-a11y"
+    "import"
   ],
   "settings": {
     "import/resolve": {
       "moduleDirectory": [
         "node_modules",
-        "src"
+        "src",
+        "api"
       ]
     }
   },
-  "rules": {
-    "arrow-parens": [
-      "error",
-      "as-needed"
-    ],
-    "semi": "off",
-    "comma-dangle": [
-      "error",
-      "only-multiline"
-    ],
-    "indent": [
-      "error",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
-    "max-len": [
-      "error",
-      120,
-      {
-        "ignorePattern": "[^\\n\\r]{115,120}\\{(?:'|\") (?:'|\")\\}"
-      }
-    ],
-    "react/forbid-prop-types": "warn",
-    "react/jsx-closing-tag-location": "off",
-    "react/jsx-filename-extension": "off",
-    "react/jsx-no-target-blank": "warn",
-    "react/no-multi-comp": [
-      "error",
-      {
-        "ignoreStateless": true
-      }
-    ],
-    "react/no-unescaped-entities": "off",
-    "react/prefer-stateless-function": "warn",
-    "jsx-a11y/label-has-for": [
-      "error",
-      {
-        "allowChildren": true
-      }
-    ],
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        "components": [
-          "Link"
-        ],
-        "specialLink": [
-          "to"
-        ],
-        "aspects": [
-          "noHref",
-          "invalidHref",
-          "preferButton"
-        ]
-      }
-    ]
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
   },
   "globals": {
     "__DEVELOPMENT__": true,
