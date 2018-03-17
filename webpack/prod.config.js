@@ -180,12 +180,12 @@ module.exports = {
     webpackIsomorphicToolsPlugin,
 
     new ReactLoadablePlugin({
-      filename: path.join(assetsPath, 'loadable-chunks.json')
+      filename: path.join(assetsPath, 'loadable-chunks.json'),
     }),
 
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/pwa.js'
+      template: 'src/pwa.js',
     }),
 
     new SWPrecacheWebpackPlugin({
@@ -194,20 +194,23 @@ module.exports = {
       maximumFileSizeToCacheInBytes: 8388608,
 
       // Ensure all our static, local assets are cached.
-      staticFileGlobs: [path.dirname(assetsPath) + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
+      staticFileGlobs: [
+        path.dirname(assetsPath) +
+        '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
       stripPrefix: path.dirname(assetsPath),
 
       directoryIndex: '/',
       verbose: true,
       navigateFallback: '/dist/index.html',
-      runtimeCaching: [{
-        urlPattern: /\/api\/widget\/load(.*)/,
-        handler: 'networkFirst',
-        options: {
-          debug: true
-        }
-      }]
-    })
+      runtimeCaching: [
+        {
+          urlPattern: /\/api\/widget\/load(.*)/,
+          handler: 'networkFirst',
+          options: {
+            debug: true,
+          },
+        }],
+    }),
   ],
 }
 
