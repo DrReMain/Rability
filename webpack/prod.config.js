@@ -47,7 +47,7 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 modules: true,
-                importLoaders: 2,
+                importLoaders: 2, // Number of loaders applied before CSS loader
                 sourceMap: true,
               },
             }, {

@@ -57,7 +57,7 @@ The request to use DLLs for this build will be ignored.`)
   return undefined
 }
 
-function isValidDLLs(dllNames, assetsPath) {
+function isValidDLLs(dllNames = 'vendor', assetsPath) {
   for (var dllName of [].concat(dllNames)) {
     try {
       var manifest = require(
@@ -68,7 +68,8 @@ function isValidDLLs(dllNames, assetsPath) {
         console.warn(`Invalid dll: ${dllName}`)
         return false
       }
-    } catch (e) {
+    }
+    catch (e) {
       return false
     }
   }
