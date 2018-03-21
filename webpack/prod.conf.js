@@ -1,32 +1,30 @@
-// Webpack config for creating the production bundle.
-var path = require('path')
-var webpack = require('webpack')
-var CleanPlugin = require('clean-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
-var ReactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin
+const path = require('path')
+const webpack = require('webpack')
+const CleanPlugin = require('clean-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const Loadable = require('react-loadable/webpack')
+const config = require('../config')
 
-var projectRootPath = path.resolve(__dirname, '../')
-var assetsPath = path.resolve(projectRootPath, './static/dist')
-
-var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
-var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
-  require('./webpack-isomorphic-tools'))
+// universal-tools
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
+  require('./isomorphic'))
 
 module.exports = {
   devtool: 'source-map',
-  context: path.resolve(__dirname, '..'),
+  context: config.rootDir,
   entry: {
-    main: [
+    bundle: [
       './src/client.js',
     ],
   },
   output: {
-    path: assetsPath,
+    path: config.assetsDir,
     filename: '[name]-[chunkhash].js',
-    chunkFilename: '[name]-[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
     publicPath: '/dist/',
   },
   performance: {
@@ -39,6 +37,26 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules(\/|\\)(?!(@feathersjs))/,
       }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                sourceMap: true,
+              },
+            }, {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        }),
+      }, {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -47,7 +65,7 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 modules: true,
-                importLoaders: 2, // Number of loaders applied before CSS loader
+                importLoaders: 2,
                 sourceMap: true,
               },
             }, {
@@ -117,7 +135,7 @@ module.exports = {
           mimetype: 'image/svg+xml',
         },
       }, {
-        test: webpackIsomorphicToolsPlugin.regular_expression('images'),
+        test: /\.(jpeg|jpg|png|gif)$/,
         loader: 'url-loader',
         options: {
           limit: 10240,
@@ -126,38 +144,21 @@ module.exports = {
     ],
   },
   resolve: {
+    alias: {
+      src: config.srcDir,
+    },
     modules: [
-      'src',
+      config.srcDir,
       'node_modules',
     ],
     extensions: ['.json', '.js', '.jsx'],
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      test: /\.(less|scss)/,
-      options: {
-        postcss: function(webpack) {
-          return [
-            require('postcss-import')({ addDependencyTo: webpack }),
-            require('postcss-url')(),
-            require('postcss-cssnext')({ browsers: 'last 2 version' }),
-            // add your "plugins" here
-            // ...
-            // and if you want to compress,
-            // just use css-loader option that already use cssnano under the hood
-            require('postcss-browser-reporter')(),
-            require('postcss-reporter')(),
-          ]
-        },
-      },
-    }),
 
-    new CleanPlugin([assetsPath], { root: projectRootPath }),
+    new CleanPlugin([config.assetsDir], { root: config.rootDir }),
 
-    // css files from the extract-text-plugin loader
     new ExtractTextPlugin({
-      filename: '[name]-[chunkhash].css',
-      // disable: false,
+      filename: '[name]-[contenthash].css',
       allChunks: true,
     }),
 
@@ -171,16 +172,14 @@ module.exports = {
       __DLLS__: false,
     }),
 
-    // ignore dev config
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
-    // optimizations
     new UglifyJsPlugin(),
 
     webpackIsomorphicToolsPlugin,
 
-    new ReactLoadablePlugin({
-      filename: path.join(assetsPath, 'loadable-chunks.json'),
+    new Loadable.ReactLoadablePlugin({
+      filename: path.join(config.assetsDir, 'loadable-chunks.json'),
     }),
 
     new HtmlWebpackPlugin({
@@ -191,26 +190,8 @@ module.exports = {
     new SWPrecacheWebpackPlugin({
       cacheId: 'appName',
       filename: 'service-worker.js',
-      maximumFileSizeToCacheInBytes: 8388608,
-
-      // Ensure all our static, local assets are cached.
-      staticFileGlobs: [
-        path.dirname(assetsPath) +
-        '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
-      stripPrefix: path.dirname(assetsPath),
-
-      directoryIndex: '/',
-      verbose: true,
-      navigateFallback: '/dist/index.html',
-      runtimeCaching: [
-        {
-          urlPattern: /\/api\/widget\/load(.*)/,
-          handler: 'networkFirst',
-          options: {
-            debug: true,
-          },
-        }],
+      minify: true,
     }),
+
   ],
 }
-
