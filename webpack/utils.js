@@ -2,10 +2,10 @@ const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
 const HappyPack = require('happypack')
-const happyThreadPool = HappyPack.ThreadPool({size: 5})
+const happyThreadPool = HappyPack.ThreadPool({ size: 5 })
 const config = require('../config')
 
-function happyPlugin (id, loaders) {
+function happyPlugin(id, loaders) {
   return new HappyPack({
     id,
     loaders,
@@ -15,7 +15,7 @@ function happyPlugin (id, loaders) {
   })
 }
 
-function createDLL (conf, dllName) {
+function createDLL(conf, dllName) {
   let manifest
   try {
     manifest = require(
@@ -34,14 +34,14 @@ function createDLL (conf, dllName) {
   }
 }
 
-function babelrcObject () {
+function babelrcObject() {
   const babelrc = require('../package').babel
   const babelrcDevPlugins = babelrc.env && babelrc.env.development &&
     babelrc.env.development.plugins
 
   const babelLoaderQuery = Object.assign(
     {},
-    ...babelrc,
+    babelrc,
     {
       plugins: [...babelrc.plugins, ...babelrcDevPlugins],
     },
@@ -51,4 +51,4 @@ function babelrcObject () {
   return babelLoaderQuery
 }
 
-module.exports = {happyPlugin, createDLL, babelrcObject}
+module.exports = { happyPlugin, createDLL, babelrcObject }

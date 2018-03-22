@@ -154,8 +154,8 @@ app.use(async (req, res) => {
         </Provider>
       </Loadable.Capture>
     );
-
     const content = ReactDOMServer.renderToString(component);
+    console.log(content);
 
     if (context.url) {
       return res.redirect(301, context.url);

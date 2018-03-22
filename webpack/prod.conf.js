@@ -35,7 +35,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules(\/|\\)(?!(@feathersjs))/,
+        exclude: /node_modules(\/|\\)(?!(@feathersjs))/
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -155,7 +155,7 @@ module.exports = {
   },
   plugins: [
 
-    new CleanPlugin([config.assetsDir], { root: config.rootDir }),
+    new CleanPlugin([config.assetsDir], {root: config.rootDir}),
 
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',

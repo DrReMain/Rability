@@ -1,11 +1,5 @@
 require('babel-polyfill')
-
-const babelrc = require('../package.json').babel
-if (Array.isArray(babelrc.plugins)) {
-  babelrc.plugins.push('dynamic-import-node')
-}
-
-require('babel-register')(babelrc)
+require('babel-register')(require('../config/babelRegisterConf'))
 
 const config = require('../config')
 

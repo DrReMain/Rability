@@ -26,14 +26,15 @@ export default function (req) {
       if (token) {
         conf.headers.authorization = token;
       }
+
       return conf;
     },
-    err => Promise.reject(err)
+    error => Promise.reject(error)
   );
 
   instance.interceptors.response.use(
     response => response.data,
-    err => Promise.reject(err.response ? err.response.data : err)
+    error => Promise.reject(error.response ? error.response.data : error)
   );
 
   return instance;
