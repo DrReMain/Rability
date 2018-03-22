@@ -12,7 +12,7 @@ global.__DLLS__ = process.env.WEBPACK_DLLS === 'true'
 if (__DEVELOPMENT__) {
   if (!require('piping')({
       hook: true,
-      ignore: /(\/\.|~$|\.json|\.scss$)/i,
+      ignore: /(\/\.|~$|\.json|\.css$|\.less$|\.scss$|\.sass$)/i,
     })) {
     return
   }

@@ -17,7 +17,7 @@ module.exports = {
   devtool: 'source-map',
   context: config.rootDir,
   entry: {
-    bundle: [
+    main: [
       './src/client.js',
     ],
   },

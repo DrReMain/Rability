@@ -1,6 +1,6 @@
 {
   "name": "Rability",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "bin/server.js",
   "author": "Dr.ReMain <51071534@qq.com>",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "redux"
   ],
   "scripts": {
-    "start": "npm-p start:prod start:api",
+    "start": "run-p start:prod start:api",
     "start:prod": "cross-env NODE_PATH=src NODE_ENV=production PORT=8080 APIPORT=3030 node ./bin/server.js",
     "start:api": "cross-env NODE_PATH=api NODE_ENV=production APIPORT=3030 node ./bin/api.js",
     "dev": "run-p dev:client dev:server dev:api",

@@ -75,10 +75,11 @@ app.use((req, res, next) => {
 });
 
 // 转发api请求
-// app.use('/api', (req, res) => {
-//   proxy.web(req, res, { target: `//${config.apiHOST}:${config.apiPORT}` });
-// });
-//
+app.use('/api', (req, res) => {
+  const target = `http//${config.apiHOST}:${config.apiPORT}`;
+  proxy.web(req, res, { target });
+});
+
 // 转发webSocket请求
 // app.use('/ws', (req, res) => {
 //   proxy.web(req, res, { target: `//${config.apiHOST}:${config.apiPORT}/ws` });
@@ -88,17 +89,17 @@ app.use((req, res, next) => {
 //   proxy.ws(req, socket, head);
 // });
 
-proxy.on('error', (error, req, res) => {
-  if (error.code !== 'ECONNRESET') {
-    console.error('proxy error', error);
-  }
-  if (!res.headersSent) {
-    res.writeHead(500, { 'content-type': 'application/json' });
-  }
-
-  const json = { error: 'proxy_error', reason: error.message };
-  res.end(JSON.stringify(json));
-});
+// proxy.on('error', (error, req, res) => {
+//   if (error.code !== 'ECONNRESET') {
+//     console.error('proxy error', error);
+//   }
+//   if (!res.headersSent) {
+//     res.writeHead(500, { 'content-type': 'application/json' });
+//   }
+//
+//   const json = { error: 'proxy_error', reason: error.message };
+//   res.end(JSON.stringify(json));
+// });
 
 app.use(async (req, res) => {
   if (__DEVELOPMENT__) {
