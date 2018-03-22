@@ -22,7 +22,7 @@ module.exports = Object.assign(
     port: process.env.PORT || 3000,
     staticHOST: process.env.HOST || '127.0.0.1',
     staticPORT: process.env.PORT ? Number(process.env.PORT) + 1 : 3001,
-    apiHOST: process.env.APIHOST || 'localhost',
+    apiHOST: process.env.APIHOST || '127.0.0.1',
     apiPORT: process.env.APIPORT,
   },
   environment,

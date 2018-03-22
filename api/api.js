@@ -7,9 +7,9 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
 import config from '../config';
-// import services from './services';
-// import channels from './channels';
-import { logger, notFound, errorHandler } from './middleware';
+import services from './services';
+import channels from './channels';
+import { logger, notFound, errorHandler, actionHandler } from './middleware';
 // import auth from './services/authentication';
 
 process.on('unhandledRejection', err => console.error(err));
@@ -31,9 +31,9 @@ app
   .configure(express.rest())
   .configure(socketio({ path: '/ws' }))
   // .configure(auth)
-  // .use(actionHanlder(app))
-  // .configure(services)
-  // .configure(channels)
+  .use(actionHandler(app))
+  .configure(services)
+  .configure(channels)
   .use(notFound())
   .use(logger(app))
   .use(errorHandler());

@@ -37,7 +37,7 @@ const pretty = new PrettyError();
 const app = express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
-  target: `//${config.apiHOST}:${config.apiPORT}`,
+  target: `http://${config.apiHOST}:${config.apiPORT}`,
   ws: true
 });
 
@@ -75,30 +75,29 @@ app.use((req, res, next) => {
 });
 
 // 转发api请求
-app.use('/api', (req, res) => {
-  proxy.web(req, res, { target: `//${config.apiHOST}:${config.apiPORT}` });
-});
-
+// app.use('/api', (req, res) => {
+//   proxy.web(req, res, { target: `//${config.apiHOST}:${config.apiPORT}` });
+// });
+//
 // 转发webSocket请求
-app.use('/ws', (req, res) => {
-  proxy.web(req, res, { target: `//${config.apiHOST}:${config.apiPORT}/ws` });
-});
+// app.use('/ws', (req, res) => {
+//   proxy.web(req, res, { target: `//${config.apiHOST}:${config.apiPORT}/ws` });
+// });
 
-server.on('upgrade', (req, socket, head) => {
-  proxy.ws(req, socket, head);
-});
+// server.on('upgrade', (req, socket, head) => {
+//   proxy.ws(req, socket, head);
+// });
 
 proxy.on('error', (error, req, res) => {
   if (error.code !== 'ECONNRESET') {
     console.error('proxy error', error);
   }
   if (!res.headersSent) {
-    res.writeHead(500, {
-      'Content-Type': 'application/json'
-    });
+    res.writeHead(500, { 'content-type': 'application/json' });
   }
+
   const json = { error: 'proxy_error', reason: error.message };
-  res.send(JSON.stringify(json));
+  res.end(JSON.stringify(json));
 });
 
 app.use(async (req, res) => {
@@ -155,7 +154,6 @@ app.use(async (req, res) => {
       </Loadable.Capture>
     );
     const content = ReactDOMServer.renderToString(component);
-    console.log(content);
 
     if (context.url) {
       return res.redirect(301, context.url);

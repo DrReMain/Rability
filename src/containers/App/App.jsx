@@ -6,12 +6,8 @@ import { renderRoutes } from 'react-router-config';
 import Helmet from 'react-helmet';
 
 const helmetConf = {
-  title: 'App',
-  description: '',
-  head: {
-    titleTemplate: 'App: %s',
-    meta: [{ charset: 'utf-8' }]
-  }
+  titleTemplate: 'App: %s',
+  meta: [{ charset: 'utf-8' }]
 };
 
 @connect(state => ({ num: state.demo }))
