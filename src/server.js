@@ -36,8 +36,9 @@ process.on('unhandledRejection', error => console.error(error));
 const pretty = new PrettyError();
 const app = express();
 const server = new http.Server(app);
+const targetUrl = `//${config.apiHOST}:${config.apiPORT}`;
 const proxy = httpProxy.createProxyServer({
-  target: `http://${config.apiHOST}:${config.apiPORT}`,
+  target: targetUrl,
   ws: true
 });
 
@@ -76,13 +77,12 @@ app.use((req, res, next) => {
 
 // 转发api请求
 app.use('/api', (req, res) => {
-  const target = `http//${config.apiHOST}:${config.apiPORT}`;
-  proxy.web(req, res, { target });
+  proxy.web(req, res, { target: targetUrl });
 });
 
 // 转发webSocket请求
 // app.use('/ws', (req, res) => {
-//   proxy.web(req, res, { target: `//${config.apiHOST}:${config.apiPORT}/ws` });
+//   proxy.web(req, res, { target: `${targetUrl}/ws` });
 // });
 
 // server.on('upgrade', (req, socket, head) => {
