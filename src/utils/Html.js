@@ -29,6 +29,7 @@ export default class Html extends Component {
     } = this.props;
     const head = Helmet.renderStatic();
 
+    /* eslint-disable react/no-danger */
     return (
       <html lang="en">
         <head>
@@ -82,5 +83,6 @@ export default class Html extends Component {
         </body>
       </html>
     );
+    /* eslint-enable react/no-danger */
   }
 }
