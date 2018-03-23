@@ -77,5 +77,4 @@ module.exports = {
       name: 'DLL_[name]_[hash]',
     }),
   ],
-
 }

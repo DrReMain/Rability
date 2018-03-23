@@ -3,7 +3,7 @@ import config from '../../config';
 
 export default function (req) {
   const instance = axios.create({
-    baseURL: __SERVER__ ? `//${config.apiHOST}:${config.apiPORT}` : '/api'
+    baseURL: __SERVER__ ? config.proxyUrl : '/api'
   });
 
   let token;

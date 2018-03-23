@@ -80,13 +80,13 @@ app.use('/api', (req, res) => {
 });
 
 // 转发webSocket请求
-// app.use('/ws', (req, res) => {
-//   proxy.web(req, res, { target: `${config.proxyUrl}/ws` });
-// });
-//
-// server.on('upgrade', (req, socket, head) => {
-//   proxy.ws(req, socket, head);
-// });
+app.use('/ws', (req, res) => {
+  proxy.web(req, res, { target: `${config.proxyUrl}/ws` });
+});
+
+server.on('upgrade', (req, socket, head) => {
+  proxy.ws(req, socket, head);
+});
 
 proxy.on('error', (error, req, res) => {
   if (error.code !== 'ECONNRESET') {
@@ -110,9 +110,7 @@ app.use(async (req, res) => {
     restApp: createApp(req)
   };
 
-  const history = createMemoryHistory({
-    initialEntries: [req.originalUrl]
-  });
+  const history = createMemoryHistory({ initialEntries: [req.originalUrl] });
   const store = createStore({
     history,
     providers
@@ -190,7 +188,7 @@ app.use(async (req, res) => {
       if (err) {
         console.error(err);
       }
-      console.info('----\n==> ✅  app is running, talking to API server on %s.', config.apiPORT);
+      // console.info('----\n==> ✅  app is running, talking to API server on %s.', config.apiPORT);
       console.info('==> 💻  Open //%s:%s in a browser to view the app.', config.host, config.port);
     });
   } else {
