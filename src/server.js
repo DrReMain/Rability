@@ -36,9 +36,8 @@ process.on('unhandledRejection', error => console.error(error));
 const pretty = new PrettyError();
 const app = express();
 const server = new http.Server(app);
-const targetUrl = `//${config.apiHOST}:${config.apiPORT}`;
 const proxy = httpProxy.createProxyServer({
-  target: targetUrl,
+  target: config.proxyUrl,
   ws: true
 });
 
@@ -77,14 +76,14 @@ app.use((req, res, next) => {
 
 // 转发api请求
 app.use('/api', (req, res) => {
-  proxy.web(req, res, { target: targetUrl });
+  proxy.web(req, res, { target: config.proxyUrl });
 });
 
 // 转发webSocket请求
 // app.use('/ws', (req, res) => {
-//   proxy.web(req, res, { target: `${targetUrl}/ws` });
+//   proxy.web(req, res, { target: `${config.proxyUrl}/ws` });
 // });
-
+//
 // server.on('upgrade', (req, socket, head) => {
 //   proxy.ws(req, socket, head);
 // });
@@ -192,7 +191,7 @@ app.use(async (req, res) => {
         console.error(err);
       }
       console.info('----\n==> ✅  app is running, talking to API server on %s.', config.apiPORT);
-      console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port);
+      console.info('==> 💻  Open //%s:%s in a browser to view the app.', config.host, config.port);
     });
   } else {
     console.error('==>  ERROR: No PORT environment variable');

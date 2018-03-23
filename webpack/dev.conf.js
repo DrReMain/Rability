@@ -24,7 +24,7 @@ const webpackConfig = module.exports = {
     path: config.assetsDir,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: `//${config.staticHOST}:${config.staticPORT}/dist/`,
+    publicPath: `http://${config.staticHOST}:${config.staticPORT}/dist/`,
   },
   performance: {
     hints: false,
