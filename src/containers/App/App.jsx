@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import Helmet from 'react-helmet';
 
+import './App.less';
+
 const helmetConf = {
   titleTemplate: 'App: %s',
   meta: [{ charset: 'utf-8' }]

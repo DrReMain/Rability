@@ -52,6 +52,9 @@ app
   // 读取移动APP.manifest配置文件
   .use('/manifest.json', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'static', 'manifest.json'));
+  })
+  .use('/antd-mobile.min.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'static', 'antd-mobile.min.css'));
   });
 
 app.use('/dist/service-worker.js', (req, res, next) => {
