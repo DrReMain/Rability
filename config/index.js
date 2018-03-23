@@ -3,7 +3,7 @@ const path = require('path')
 const environment = {
   development: {
     isProduction: false,
-    assetsPath: `//${process.env.HOST || 'localhost'}:${+process.env.PORT + 1 ||
+    assetsPath: `http://${process.env.HOST || 'localhost'}:${+process.env.PORT + 1 ||
     3001}/dist/`,
   },
   production: {
