@@ -1,7 +1,7 @@
 import multireducer from 'multireducer';
 import { routerReducer as router } from 'react-router-redux';
 import { reducer as form } from 'redux-form';
-import demo from './modules/demo';
+import { demo } from './modules';
 
 export default asyncReducers => ({
   router,

@@ -1,9 +1,9 @@
-import { App } from './containers';
+import { App, Home } from './containers';
 
 const routes = [
   {
-    component: App
-    // routes: [{ path: '/', exact: true, component: Home }],
+    component: App,
+    routes: [{ path: '/', exact: true, component: Home }]
   }
 ];
 

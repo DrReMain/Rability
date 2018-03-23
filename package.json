@@ -14,7 +14,7 @@
   "scripts": {
     "start": "run-p start:prod start:api",
     "start:prod": "cross-env NODE_PATH=src NODE_ENV=production PORT=8080 APIPORT=3030 node ./bin/server.js",
-    "start:api": "cross-env NODE_PATH=api NODE_ENV=production APIPORT=3030 node ./bin/api.js",
+    "start:api": "cross-env NODE_PATH=api NODE_ENV=production APIPORT=3030 node $NODE_DEBUG_OPTION ./bin/api.js",
     "dev": "run-p dev:client dev:server dev:api",
     "dev:server": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 APIPORT=3030 WEBPACK_DLLS=true node ./bin/server.js",
     "dev:api": "cross-env NODE_PATH=api NODE_ENV=development APIPORT=3030 node ./bin/api.js",
