@@ -51,7 +51,7 @@ export default class Html extends Component {
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
           <meta name="apple-mobile-web-app-title" content="React App" />
           <meta name="theme-color" content="#000000" />
-          <link href="/antd-mobile.min.css" rel="stylesheet" />
+          {/* <link href="/antd-mobile.min.css" rel="stylesheet" /> */}
           {assets.styles &&
             Object.keys(assets.styles).map(style => (
               <link

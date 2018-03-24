@@ -12,7 +12,7 @@
     "redux"
   ],
   "scripts": {
-    "deploy":"run-s postinstall start",
+    "deploy": "run-s postinstall start",
     "start": "run-p start:prod start:api",
     "start:prod": "cross-env NODE_PATH=src NODE_ENV=production PORT=8080 APIPORT=3030 node ./bin/server.js",
     "start:api": "cross-env NODE_PATH=api NODE_ENV=production APIPORT=3030 node $NODE_DEBUG_OPTION ./bin/api.js",
@@ -161,6 +161,13 @@
       "stage-0"
     ],
     "plugins": [
+      [
+        "import",
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        }
+      ],
       "transform-runtime",
       "add-module-exports",
       "transform-decorators-legacy",

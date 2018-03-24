@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { NavBar, Icon, NoticeBar, WhiteSpace } from 'antd-mobile';
 
-import style from './Home.less';
+import './Home.less';
 
 @connect()
 export default class Home extends Component {
@@ -22,12 +22,12 @@ export default class Home extends Component {
           HOME
         </NavBar>
         <WhiteSpace />
-        <div className={style.container}>
+        <div className="container">
           <WhiteSpace size="lg" />
           <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }}>
             Notice: The arrival time of incomes and transfers of Yu &#39;E Bao will be delayed during National Day.
           </NoticeBar>
-          <p className={style.text}>T_T</p>
+          <p className="text">T_T</p>
         </div>
       </div>
     );

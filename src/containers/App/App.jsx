@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import Helmet from 'react-helmet';
 
+import 'antd-mobile/dist/antd-mobile.css';
 import './App.less';
 
 const helmetConf = {

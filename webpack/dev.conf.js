@@ -42,15 +42,12 @@ const webpackConfig = module.exports = {
       }, {
         test: /\.css$/,
         loader: 'happypack/loader?id=css',
-        include: [config.srcDir],
       }, {
         test: /\.less$/,
         loader: 'happypack/loader?id=less',
-        include: [config.srcDir],
       }, {
         test: /\.scss$/,
         loader: 'happypack/loader?id=sass',
-        include: [config.srcDir],
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
@@ -129,10 +126,10 @@ const webpackConfig = module.exports = {
       }, {
         loader: 'css-loader',
         options: {
-          modules: true,
+          modules: config.cssModules,
           importLoaders: 1,
           sourceMap: true,
-          localIdentName: '[local]___[hash:base64:5]',
+          localIdentName: config.css,
         },
       }, {
         loader: 'postcss-loader',
@@ -148,10 +145,10 @@ const webpackConfig = module.exports = {
       }, {
         loader: 'css-loader',
         options: {
-          modules: true,
+          modules: config.cssModules,
           importLoaders: 2,
           sourceMap: true,
-          localIdentName: '[local]___[hash:base64:5]',
+          localIdentName: config.css,
         },
       }, {
         loader: 'postcss-loader',
@@ -173,10 +170,10 @@ const webpackConfig = module.exports = {
       }, {
         loader: 'css-loader',
         options: {
-          modules: true,
+          modules: config.cssModules,
           importLoaders: 2,
           sourceMap: true,
-          localIdentName: '[local]___[hash:base64:5]',
+          localIdentName: config.css,
         },
       }, {
         loader: 'postcss-loader',

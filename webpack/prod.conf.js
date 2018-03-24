@@ -44,9 +44,10 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: config.cssModules,
                 importLoaders: 1,
                 sourceMap: true,
+                localIdentName: config.css,
               },
             }, {
               loader: 'postcss-loader',
@@ -64,9 +65,10 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: config.cssModules,
                 importLoaders: 2,
                 sourceMap: true,
+                localIdentName: config.css,
               },
             }, {
               loader: 'postcss-loader',
@@ -91,9 +93,10 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: config.cssModules,
                 importLoaders: 2,
                 sourceMap: true,
+                localIdentName: config.css,
               },
             }, {
               loader: 'postcss-loader',
