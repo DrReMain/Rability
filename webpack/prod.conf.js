@@ -44,7 +44,28 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: config.cssModules,
+                importLoaders: 1,
+                sourceMap: true,
+                localIdentName: config.css,
+              },
+            }, {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        }),
+        exclude: /node_modules/,
+      }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
                 importLoaders: 1,
                 sourceMap: true,
               },
@@ -56,7 +77,8 @@ module.exports = {
             },
           ],
         }),
-      }, {
+        include: /node_modules\/(antd-mobile|normalize\.css)/,
+      },{
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -64,9 +86,10 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: config.cssModules,
                 importLoaders: 2,
                 sourceMap: true,
+                localIdentName: config.css,
               },
             }, {
               loader: 'postcss-loader',
@@ -83,6 +106,7 @@ module.exports = {
             },
           ],
         }),
+        exclude: /node_modules/,
       }, {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract({
@@ -91,9 +115,10 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: config.cssModules,
                 importLoaders: 2,
                 sourceMap: true,
+                localIdentName: config.css,
               },
             }, {
               loader: 'postcss-loader',
@@ -110,6 +135,7 @@ module.exports = {
             },
           ],
         }),
+        exclude: /node_modules/,
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
