@@ -28,7 +28,7 @@ module.exports = Object.assign(
     apiPORT,
     proxyUrl: `http://${apiHOST}:${apiPORT}`,
 
-    cssModules: false,
+    cssModules: true,
     css: '[name]_[local]__[hash:base64:5]'
   },
   environment,

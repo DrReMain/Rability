@@ -57,7 +57,28 @@ module.exports = {
             },
           ],
         }),
+        exclude: /node_modules/,
       }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                sourceMap: true,
+              },
+            }, {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        }),
+        include: /node_modules\/(antd-mobile|normalize\.css)/,
+      },{
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -85,6 +106,7 @@ module.exports = {
             },
           ],
         }),
+        exclude: /node_modules/,
       }, {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract({
@@ -113,6 +135,7 @@ module.exports = {
             },
           ],
         }),
+        exclude: /node_modules/,
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',

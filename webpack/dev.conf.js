@@ -42,12 +42,19 @@ const webpackConfig = module.exports = {
       }, {
         test: /\.css$/,
         loader: 'happypack/loader?id=css',
+        exclude: /node_modules/,
       }, {
+        test: /\.css$/,
+        loader: 'happypack/loader?id=antd',
+        include: /node_modules\/(antd-mobile|normalize\.css)/,
+      },{
         test: /\.less$/,
         loader: 'happypack/loader?id=less',
+        exclude: /node_modules/,
       }, {
         test: /\.scss$/,
         loader: 'happypack/loader?id=sass',
+        exclude: /node_modules/,
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
@@ -130,6 +137,23 @@ const webpackConfig = module.exports = {
           importLoaders: 1,
           sourceMap: true,
           localIdentName: config.css,
+        },
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+        },
+      },
+    ]),
+    utils.happyPlugin('antd',[
+      {
+        loader: 'style-loader',
+        options: { sourceMap: true },
+      }, {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+          sourceMap: true,
         },
       }, {
         loader: 'postcss-loader',
