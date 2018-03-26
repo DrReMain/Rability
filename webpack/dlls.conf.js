@@ -78,8 +78,6 @@ module.exports = {
       name: 'DLL_[name]_[hash]',
     }),
 
-    new UglifyJsPlugin(),
-
     new webpack.optimize.ModuleConcatenationPlugin(),
   ],
 }
