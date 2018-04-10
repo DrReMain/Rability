@@ -34,7 +34,7 @@ const providers = {
 function initSocket() {
   socket.on('news', data => {
     console.log(data);
-    socket.emit('my other event', { my: 'data from client' });
+    socket.emit('my other event', { my: '客户端数据' });
   });
   socket.on('msg', data => {
     console.log(data);
