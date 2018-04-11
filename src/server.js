@@ -25,7 +25,7 @@ import request from './utils/request';
 import Html from '../src/utils/Html';
 import routes from '../src/routes';
 import { createApp } from '../src/app';
-import getChunks, { waitChunks } from '../src/utils/getChunks';
+import { getChunks, waitChunks } from '../src/utils/chunks';
 import asyncMatchRoutes from '../src/utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from '../src/components';
 

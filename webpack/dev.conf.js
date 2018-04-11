@@ -16,14 +16,13 @@ const webpackConfig = module.exports = {
   entry: {
     'main': [
       `webpack-hot-middleware/client?path=http://${config.staticHOST}:${config.staticPORT}/__webpack_hmr`,
-      'react-hot-loader/patch',
       './src/client.js',
     ],
   },
   output: {
     path: config.assetsDir,
     filename: '[name]-[hash].js',
-    chunkFilename: '[name]-[chunkhash].js',
+    chunkFilename: '[name]-[chunkhash].chunk.js',
     publicPath: `http://${config.staticHOST}:${config.staticPORT}/dist/`,
   },
   performance: {
@@ -116,8 +115,6 @@ const webpackConfig = module.exports = {
 
     utils.happyPlugin('jsx', [
       {
-        loader: 'react-hot-loader/webpack',
-      }, {
         loader: 'babel-loader',
         exclude: /node_modules(\/|\\)(?!(@feathersjs))/,
         options: utils.babelrcObject(),
