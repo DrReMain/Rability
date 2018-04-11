@@ -24,7 +24,7 @@ module.exports = {
   output: {
     path: config.assetsDir,
     filename: '[name]-[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
     publicPath: '/dist/',
   },
   performance: {

@@ -34,22 +34,18 @@ export default class ReduxAsyncConnect extends Component {
       // 加载数据
       const { components, match, params } = await asyncMatchRoutes(routes, nextProps.location.pathname);
 
-      await trigger('fetch', components, {
+      const triggerLocals = {
         ...providers,
         store,
         match,
         params,
         history,
         location: nextProps.location
-      });
+      };
+
+      await trigger('fetch', components, triggerLocals);
       if (__CLIENT__) {
-        await trigger('defer', components, {
-          ...providers,
-          store,
-          match,
-          history,
-          location: nextProps.location
-        });
+        await trigger('defer', components, triggerLocals);
       }
 
       // 清除旧位置，渲染新页面
