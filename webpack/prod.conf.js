@@ -201,9 +201,7 @@ module.exports = {
 
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
-    new UglifyJsPlugin({
-      sourceMap:true
-    }),
+    new UglifyJsPlugin(),
 
     new webpack.optimize.ModuleConcatenationPlugin(),
 
