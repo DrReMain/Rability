@@ -77,7 +77,7 @@ module.exports = {
             },
           ],
         }),
-        include: /node_modules\/(antd-mobile|normalize\.css)/,
+        include: /node_modules(\/|\\)(antd-mobile|normalize\.css)/,
       },{
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({
