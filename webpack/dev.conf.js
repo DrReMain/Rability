@@ -45,7 +45,7 @@ const webpackConfig = module.exports = {
       }, {
         test: /\.css$/,
         loader: 'happypack/loader?id=antd',
-        include: /node_modules\/(antd-mobile|normalize\.css)/,
+        include: /node_modules(\/|\\)(antd-mobile|normalize\.css)/,
       },{
         test: /\.less$/,
         loader: 'happypack/loader?id=less',

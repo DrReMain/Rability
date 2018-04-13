@@ -24,7 +24,7 @@
     "build:dlls": "webpack --colors --config ./webpack/dlls.conf.js",
     "postinstall": "run-p build build:dlls",
     "precommit": "lint-staged",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc './+(src|api)/**/*.js?(x)'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc \"./+(src|api)/**/*.js?(x)\"",
     "lint": "eslint --fix api src",
     "test": "cross-env NODE_PATH=src jest src",
     "test-node": "cross-env NODE_PATH=api jest api",
