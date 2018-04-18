@@ -126,17 +126,15 @@ global.socketApp = initSocket();
     }
   }
 
-  if (online && !__DEVELOPMENT__ && 'serviceWorker' in navigator) {
-    window.addEventListener('load', async () => {
-      try {
-        await navigator.serviceWorker.register('/dist/service-worker.js', { scope: '/' });
-        console.log('SW registered!');
-      } catch (e) {
-        console.log('ERROR: registering SW: ', e);
-      }
+  if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
+    try {
+      await navigator.serviceWorker.register('/dist/service-worker.js', { scope: '/' });
+      console.log('SW registered!');
+    } catch (e) {
+      console.log('ERROR: registering SW: ', e);
+    }
 
-      await navigator.serviceWorker.ready;
-      console.log('SW Ready');
-    });
+    await navigator.serviceWorker.ready;
+    console.log('SW Ready');
   }
 })();
