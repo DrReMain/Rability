@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const config = require('../config')
 
 module.exports = {
@@ -77,7 +76,5 @@ module.exports = {
       path: path.join(config.rootDir, './webpack/dlls/[name].json'),
       name: 'DLL_[name]_[hash]',
     }),
-
-    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
 }

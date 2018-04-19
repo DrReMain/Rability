@@ -56,6 +56,7 @@ app
 
 app.use('/dist/service-worker.js', (req, res, next) => {
   res.setHeader('Service-Worker-Allowed', '/');
+  res.setHeader('Cache-Control', 'no-store');
   return next();
 });
 
@@ -102,6 +103,7 @@ proxy.on('error', (error, req, res) => {
 
 app.use(async (req, res) => {
   if (__DEVELOPMENT__) {
+    // 如果是开发环境，不缓存 webpack stats
     global.webpackIsomorphicTools.refresh();
   }
   const providers = {
@@ -126,6 +128,7 @@ app.use(async (req, res) => {
   }
 
   try {
+    // preload() -> components[]
     const { components, match, params } = await asyncMatchRoutes(routes, req.originalUrl);
     await trigger('fetch', components, {
       ...providers,
