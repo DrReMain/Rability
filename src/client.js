@@ -33,11 +33,11 @@ const providers = {
 
 function initSocket() {
   socket.on('news', data => {
-    console.log(data);
+    console.log('socket emit "news":', data);
     socket.emit('my other event', { my: '客户端数据' });
   });
   socket.on('msg', data => {
-    console.log(data);
+    console.log('socket emit "msg":', data);
   });
   return socket;
 }
