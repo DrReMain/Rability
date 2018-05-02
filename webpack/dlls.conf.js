@@ -43,16 +43,17 @@ module.exports = {
       // </babel-runtime>
 
       'axios',
+      'final-form',
       'multireducer',
       'react',
       'react-dom',
+      'react-final-form',
       'react-helmet',
       'react-hot-loader',
       'react-redux',
       'react-router',
       'react-router-redux',
       'redux',
-      'redux-form',
       'serialize-javascript',
       'socket.io-client',
     ],

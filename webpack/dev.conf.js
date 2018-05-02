@@ -47,7 +47,7 @@ const webpackConfig = module.exports = {
         test: /\.css$/,
         loader: 'happypack/loader?id=antd',
         include: /node_modules(\/|\\)(antd-mobile|normalize\.css)/,
-      },{
+      }, {
         test: /\.less$/,
         loader: 'happypack/loader?id=less',
         exclude: /node_modules/,
@@ -140,10 +140,13 @@ const webpackConfig = module.exports = {
         loader: 'postcss-loader',
         options: {
           sourceMap: true,
+          config: {
+            path: '.postcssrc.js',
+          },
         },
       },
     ]),
-    utils.happyPlugin('antd',[
+    utils.happyPlugin('antd', [
       {
         loader: 'style-loader',
         options: { sourceMap: true },
@@ -157,6 +160,9 @@ const webpackConfig = module.exports = {
         loader: 'postcss-loader',
         options: {
           sourceMap: true,
+          config: {
+            path: '.postcssrc.js',
+          },
         },
       },
     ]),
@@ -176,6 +182,9 @@ const webpackConfig = module.exports = {
         loader: 'postcss-loader',
         options: {
           sourceMap: true,
+          config: {
+            path: '.postcssrc.js',
+          },
         },
       }, {
         loader: 'less-loader',
@@ -201,6 +210,9 @@ const webpackConfig = module.exports = {
         loader: 'postcss-loader',
         options: {
           sourceMap: true,
+          config: {
+            path: '.postcssrc.js',
+          },
         },
       }, {
         loader: 'sass-loader',
@@ -214,14 +226,15 @@ const webpackConfig = module.exports = {
   ],
 }
 
-const validDlls = function(dllNames = 'vendor') {
+const validDlls = function (dllNames = 'vendor') {
   process.env.WEBPACK_DLLS = 'false'
   for (let dllName of [].concat(dllNames)) {
     try {
       const manifest = require(
         path.join(config.rootDir, `webpack/dlls/${dllName}.json`))
       const dll = fs.readFileSync(
-        path.join(config.assetsDir, `dlls/dll_${dllName}.js`)).toString('utf-8')
+        path.join(config.assetsDir, `dlls/dll_${dllName}.js`))
+        .toString('utf-8')
       if (dll.indexOf(manifest.name) < 0) {
         console.warn(`Invalid dll: ${dllName}`)
         return false

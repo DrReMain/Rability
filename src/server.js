@@ -29,11 +29,12 @@ import { getChunks, waitChunks } from '../src/utils/chunks';
 import asyncMatchRoutes from '../src/utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from '../src/components';
 
+const pretty = new PrettyError();
 const chunksPath = path.join(__dirname, '..', 'static', 'dist', 'loadable-chunks.json');
 
-process.on('unhandledRejection', error => console.error(error));
+process.on('unhandledRejection', (reason, p) =>
+  console.error('Unhandled Rejection at: Promise ', p, pretty.render(reason)));
 
-const pretty = new PrettyError();
 const app = express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
@@ -107,9 +108,8 @@ app.use(async (req, res) => {
     global.webpackIsomorphicTools.refresh();
   }
   const providers = {
-    client: request(req),
     app: createApp(req),
-    restApp: createApp(req)
+    client: request(req)
   };
 
   const history = createMemoryHistory({ initialEntries: [req.originalUrl] });
