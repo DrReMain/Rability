@@ -27,8 +27,7 @@ const persistConfig = {
 const target = document.getElementById('content');
 const providers = {
   client: request(),
-  app: createApp(),
-  restApp: createApp('rest')
+  app: createApp()
 };
 
 function initSocket() {
@@ -42,7 +41,7 @@ function initSocket() {
   return socket;
 }
 
-global.socketApp = initSocket();
+initSocket();
 
 (async () => {
   const storedData = await getStoredState(persistConfig);
@@ -103,6 +102,7 @@ global.socketApp = initSocket();
 
   await hydrate(routes);
 
+  // Hot reload
   if (module.hot) {
     module.hot.accept('./routes', () => {
       const nextRoutes = require('./routes');
@@ -112,6 +112,7 @@ global.socketApp = initSocket();
     });
   }
 
+  // Server-side rendering check
   if (process.env.NODE_ENV !== 'production') {
     window.React = React; // enable debugger
 
@@ -126,6 +127,7 @@ global.socketApp = initSocket();
     }
   }
 
+  // Service worker
   if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
     try {
       await navigator.serviceWorker.register('/dist/service-worker.js', { scope: '/' });

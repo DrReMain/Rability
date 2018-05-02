@@ -9,6 +9,12 @@ module.exports = {
     vendor: [
       'babel-polyfill',
 
+      //
+      // Generate this list using the following command against the stdout of
+      // webpack running against the source bundle config (dev/prod.js):
+      //
+      //    webpack --config webpack/dev.config.js --display-modules | egrep -o 'babel-runtime/\S+' | sed 's/\.js$//' | sort | uniq
+
       // <babel-runtime>
       'babel-runtime/core-js/array/from',
       'babel-runtime/core-js/get-iterator',
@@ -43,16 +49,17 @@ module.exports = {
       // </babel-runtime>
 
       'axios',
+      'final-form',
       'multireducer',
       'react',
       'react-dom',
+      'react-final-form',
       'react-helmet',
       'react-hot-loader',
       'react-redux',
       'react-router',
       'react-router-redux',
       'redux',
-      'redux-form',
       'serialize-javascript',
       'socket.io-client',
     ],

@@ -35,7 +35,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules(\/|\\)(?!(@feathersjs))/
+        exclude: /node_modules(\/|\\)(?!(@feathersjs))/,
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -48,11 +48,15 @@ module.exports = {
                 importLoaders: 1,
                 sourceMap: true,
                 localIdentName: config.css,
+                minimize: true,
               },
             }, {
               loader: 'postcss-loader',
               options: {
                 sourceMap: true,
+                config: {
+                  path: '.postcssrc.js',
+                },
               },
             },
           ],
@@ -68,17 +72,21 @@ module.exports = {
               options: {
                 importLoaders: 1,
                 sourceMap: true,
+                minimize: true,
               },
             }, {
               loader: 'postcss-loader',
               options: {
                 sourceMap: true,
+                config: {
+                  path: '.postcssrc.js',
+                },
               },
             },
           ],
         }),
         include: /node_modules(\/|\\)(antd-mobile|normalize\.css)/,
-      },{
+      }, {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -90,11 +98,15 @@ module.exports = {
                 importLoaders: 2,
                 sourceMap: true,
                 localIdentName: config.css,
+                minimize: true,
               },
             }, {
               loader: 'postcss-loader',
               options: {
                 sourceMap: true,
+                config: {
+                  path: '.postcssrc.js',
+                },
               },
             }, {
               loader: 'less-loader',
@@ -119,11 +131,15 @@ module.exports = {
                 importLoaders: 2,
                 sourceMap: true,
                 localIdentName: config.css,
+                minimize: true,
               },
             }, {
               loader: 'postcss-loader',
               options: {
                 sourceMap: true,
+                config: {
+                  path: '.postcssrc.js',
+                },
               },
             }, {
               loader: 'sass-loader',
@@ -181,7 +197,7 @@ module.exports = {
   },
   plugins: [
 
-    new CleanPlugin([config.assetsDir], {root: config.rootDir}),
+    new CleanPlugin([config.assetsDir], { root: config.rootDir }),
 
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',
@@ -190,7 +206,7 @@ module.exports = {
 
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': JSON.stringify('production'),
       },
       __CLIENT__: true,
       __SERVER__: false,
@@ -219,7 +235,15 @@ module.exports = {
     new SWPrecacheWebpackPlugin({
       cacheId: 'appName',
       filename: 'service-worker.js',
-      minify: true,
+      maximumFileSizeToCacheInBytes: 8388608,
+
+      // Ensure all our static, local assets are cached.
+      staticFileGlobs: [path.dirname(config.assetsDir) + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
+      stripPrefix: path.dirname(config.assetsDir),
+
+      directoryIndex: '/',
+      verbose: true,
+      navigateFallback: '/dist/index.html'
     }),
 
   ],
