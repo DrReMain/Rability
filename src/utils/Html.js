@@ -59,7 +59,7 @@ const Html = ({
         )}
         {__DLLS__ && <script key="dlls" src="/dist/dlls/dll_vendor.js" charSet="UTF-8" />}
         {assets.javascript && <script src={assets.javascript.main} charSet="UTF-8" />}
-        {bundles.map(bundle => bundle && <script src={config.assetsDir + bundle.file} key={bundle.id} />)}
+        {bundles.map(bundle => bundle && <script src={config.assetsPath + bundle.file} key={bundle.id} />)}
         {/* (will be present only in development mode) */}
         {assets.styles && Object.keys(assets.styles).length === 0 ? (
           <script dangerouslySetInnerHTML={{ __html: 'document.getElementById("content").style.display="block";' }} />
