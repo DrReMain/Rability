@@ -12,6 +12,7 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
   require('./isomorphic'))
 
 const webpackConfig = module.exports = {
+  mode: 'development',
   devtool: 'inline-source-map',
   context: config.rootDir,
   entry: {

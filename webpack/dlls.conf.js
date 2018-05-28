@@ -3,7 +3,8 @@ const webpack = require('webpack')
 const config = require('../config')
 
 module.exports = {
-  devtool: process.env.NODE_ENV === 'production' ? false : 'inline-source-map',
+  mode: 'development',
+  devtool: 'inline-source-map',
 
   entry: {
     vendor: [

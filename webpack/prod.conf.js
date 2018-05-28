@@ -14,6 +14,7 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
   require('./isomorphic'))
 
 module.exports = {
+  mode: 'production',
   devtool: 'source-map',
   context: config.rootDir,
   entry: {
@@ -200,7 +201,7 @@ module.exports = {
     new CleanPlugin([config.assetsDir], { root: config.rootDir }),
 
     new ExtractTextPlugin({
-      filename: '[name]-[contenthash].css',
+      filename: '[name]-[chunkhash].css',
       allChunks: true,
     }),
 
