@@ -1,5 +1,4 @@
 import 'babel-polyfill';
-import pick from 'lodash/pick';
 import React from 'react';
 import { hydrate as _hydrate } from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
@@ -9,7 +8,8 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import Loadable from 'react-loadable';
 import { AppContainer as HotEnabler } from 'react-hot-loader';
 import { getStoredState } from 'redux-persist';
-import localForage from 'localforage';
+import { CookieStorage } from 'redux-persist-cookie-storage';
+import Cookies from 'cookies-js';
 
 import { socket, createApp } from './app';
 import createStore from './redux/createStore';
@@ -20,8 +20,12 @@ import asyncMatchRoutes from './utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from './components';
 
 const persistConfig = {
-  key: 'primary',
-  storage: localForage,
+  key: 'root',
+  storage: new CookieStorage(Cookies),
+  stateReconciler(inboundState, originalState) {
+    // Ignore state from cookies, only use preloadedState from window object
+    return originalState;
+  },
   whitelist: ['auth']
 };
 
@@ -47,7 +51,7 @@ function initSocket() {
 initSocket();
 
 (async () => {
-  const storedData = await getStoredState(persistConfig);
+  const preloadedState = await getStoredState(persistConfig);
   const online = window.__data ? true : await isOnline();
 
   if (online) {
@@ -56,17 +60,13 @@ initSocket();
   }
 
   const history = createBrowserHistory();
-  const data = {
-    ...storedData,
-    ...window.__data,
-    ...pick(storedData, [
-      /* data always from store */
-    ]),
-    online
-  };
   const store = createStore({
     history,
-    data,
+    data: {
+      ...preloadedState,
+      ...window.__data,
+      online
+    },
     providers,
     persistConfig
   });
