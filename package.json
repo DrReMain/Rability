@@ -94,6 +94,7 @@
     "babel-eslint": "^8.2.2",
     "babel-jest": "^23.0.1",
     "babel-loader": "^7.1.4",
+    "babel-plugin-import": "^1.8.0",
     "babel-plugin-transform-react-jsx-source": "^6.22.0",
     "chai": "^4.1.2",
     "clean-webpack-plugin": "^0.1.19",
@@ -161,6 +162,13 @@
       "stage-0"
     ],
     "plugins": [
+      [
+        "import",
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        }
+      ],
       "transform-runtime",
       "transform-decorators-legacy",
       "react-loadable/babel",
