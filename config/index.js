@@ -12,7 +12,7 @@ const environment = {
 }[process.env.NODE_ENV || 'development']
 
 const apiHOST = process.env.APIHOST || '127.0.0.1'
-const apiPORT = process.env.APIPORT
+const apiPORT = process.env.APIPORT || 3030
 
 module.exports = Object.assign(
   {

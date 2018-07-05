@@ -27,7 +27,6 @@ import createStore from '../src/redux/createStore';
 import request from './utils/request';
 import Html from '../src/utils/Html';
 import routes from '../src/routes';
-import { createApp } from '../src/app';
 import { getChunks, waitChunks } from '../src/utils/chunks';
 import asyncMatchRoutes from '../src/utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from '../src/components';
@@ -111,7 +110,6 @@ app.use(async (req, res) => {
     global.webpackIsomorphicTools.refresh();
   }
   const providers = {
-    app: createApp(req),
     client: request(req)
   };
 
@@ -213,7 +211,7 @@ app.use(async (req, res) => {
       if (err) {
         console.error(err);
       }
-      // console.info('----\n==> ✅  app is running, talking to API server on %s.', config.apiPORT);
+
       console.info('==> 💻  Open //%s:%s in a browser to view the app.', config.host, config.port);
     });
   } else {

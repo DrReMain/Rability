@@ -1,5 +1,1 @@
-# Rability
-
-## base:
-
-render-serve
+# 项目开始前先确认配置信息
