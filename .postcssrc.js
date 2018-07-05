@@ -1,6 +1,5 @@
 module.exports = ({ file }) => ({
   plugins: {
-    'postcss-import': { root: file.dirname },
     'postcss-url': [
       {
         filter: './**.*',
