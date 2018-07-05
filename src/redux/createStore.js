@@ -46,7 +46,7 @@ export default function ({
 
   const enhancers = [applyMiddleware(...middleware)];
 
-  if (__CLIENT__ && __DEVTOOLS__) {
+  if (__CLIENT__ && __DEVTOOLS__ && window.devToolsExtension) {
     Array.prototype.push.apply(enhancers, [window.devToolsExtension()]);
   }
 
