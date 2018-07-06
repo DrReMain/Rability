@@ -62,7 +62,6 @@ module.exports = {
       'react-router-redux',
       'redux',
       'serialize-javascript',
-      'socket.io-client',
     ],
   },
   output: {
