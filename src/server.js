@@ -121,7 +121,7 @@ app.use(async (req, res) => {
     key: 'root',
     storage: new CookieStorage(cookieJar),
     stateReconciler: (inboundState, originalState) => originalState,
-    whitelist: ['auth', 'info', 'chat']
+    whitelist: ['auth']
   };
 
   let preloadedState;
