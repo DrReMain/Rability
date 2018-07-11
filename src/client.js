@@ -89,8 +89,7 @@ const providers = {
   // Hot reload
   if (module.hot) {
     module.hot.accept('./dynamicRoutes', async () => {
-      let nextRoutes = await require('./dynamicRoutes');
-      nextRoutes = (nextRoutes.__esModule ? nextRoutes.default : nextRoutes)();
+      const nextRoutes = await require('./dynamicRoutes').default();
       hydrate(nextRoutes).catch(err => {
         console.error('Error on routes reload:', err);
       });
