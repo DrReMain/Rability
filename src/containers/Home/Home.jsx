@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import { NavBar, Icon, NoticeBar, Carousel, WingBlank, Grid } from 'antd-mobile';
 
@@ -8,7 +9,7 @@ import style from './Home.less';
 @connect()
 export default class Home extends Component {
   state = {
-    data: ['1', '2', '3'],
+    data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
     imgHeight: 176,
     list: [
       'check-circle',
@@ -25,14 +26,6 @@ export default class Home extends Component {
       'loading'
     ]
   };
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI']
-      });
-    }, 100);
-  }
 
   render() {
     const data = this.state.list.map(item => ({
@@ -88,7 +81,12 @@ export default class Home extends Component {
           </WingBlank>
         </div>
         <div className={style.container}>
-          <Grid data={data} columnNum={3} hasLine={false} activeStyle={false} />
+          <Grid data={data} columnNum={3} activeStyle={false} hasLine />
+        </div>
+        <div className={style.container}>
+          <p className="danger">
+            <Link to="/about">about</Link>
+          </p>
         </div>
       </div>
     );

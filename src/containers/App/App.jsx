@@ -6,7 +6,7 @@ import { renderRoutes } from 'react-router-config';
 import Helmet from 'react-helmet';
 
 import './global.less';
-import styles from './App.less';
+import style from './App.less';
 
 const helmetConf = {
   titleTemplate: 'App: %s',
@@ -23,7 +23,7 @@ export default class App extends Component {
   render() {
     const { route } = this.props;
     return (
-      <div className={styles.app}>
+      <div className={style.app}>
         <Helmet {...helmetConf} />
         <main>{renderRoutes(route.routes)}</main>
       </div>

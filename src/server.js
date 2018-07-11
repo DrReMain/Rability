@@ -26,7 +26,7 @@ import config from '../config';
 import createStore from '../src/redux/createStore';
 import request from './utils/request';
 import Html from '../src/utils/Html';
-import routes from '../src/routes';
+import dynamicRoutes from './dynamicRoutes';
 import { getChunks, waitChunks } from '../src/utils/chunks';
 import asyncMatchRoutes from '../src/utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from '../src/components';
@@ -148,7 +148,8 @@ app.use(async (req, res) => {
 
   try {
     // preload() -> components[]
-    console.log(req.path, '-', req.originalUrl);
+    // console.log(req.path, '-', req.originalUrl);
+    const routes = await dynamicRoutes(providers);
     const { components, match, params } = await asyncMatchRoutes(routes, req.path);
     await trigger('fetch', components, {
       ...providers,
