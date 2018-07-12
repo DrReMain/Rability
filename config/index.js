@@ -3,7 +3,8 @@ const path = require('path');
 const environment = {
   development: {
     isProduction: false,
-    assetsPath: `http://${process.env.HOST || 'localhost'}:${+process.env.PORT + 1 || 3001}/dist/`, // 开发环境内的静态资源路径
+    assetsPath: `http://${process.env.STATICHOST || process.env.HOST ||
+    'localhost'}:${+process.env.PORT + 1 || 3001}/dist/`, // 开发环境内的静态资源路径
   },
   production: {
     isProduction: true,
@@ -20,10 +21,8 @@ module.exports = Object.assign(
     assetsDir: path.resolve(__dirname, '../static/dist'), // 项目dist文件夹在本机的绝对路径
     srcDir: path.resolve(__dirname, '../src'), // 项目src文件夹在本机的绝对路径
 
-    host: process.env.HOST || '127.0.0.1', // 渲染服务运行host
-    port: process.env.PORT || 3000, // 渲染服务运行port
-    staticHOST: process.env.STATICHOST || process.env.HOST || '127.0.0.1', // 静态资源服务运行host
-    staticPORT: process.env.STATICPORT || process.env.PORT ? Number(process.env.PORT) + 1 : 3001, // 静态资源服务运行port
+    host: process.env.HOST || '127.0.0.1',
+    port: process.env.PORT || 3000,
     apiHOST,
     apiPORT,
 

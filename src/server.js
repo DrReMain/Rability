@@ -3,6 +3,7 @@ import path from 'path';
 import http from 'http';
 import express from 'express';
 import morgan from 'morgan';
+import FileStreamRotator from 'file-stream-rotator';
 import favicon from 'serve-favicon';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -40,15 +41,31 @@ process.on('unhandledRejection', (reason, p) =>
 const app = express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
-  target: config.proxyUrl,
-  ws: true
+  target: config.proxyUrl
 });
 
+// 日志
+const logDirectory = path.resolve(__dirname, '../logs');
+if (fs.existsSync(logDirectory)) {
+  fs.mkdirSync(logDirectory);
+}
+
+const accessLogStream = FileStreamRotator.getStream({
+  date_format: 'YYYYMMDD',
+  filename: path.join(logDirectory, 'access-%DATE%.log'),
+  frequency: 'daily',
+  verbose: false
+});
+
+let morganConf;
+if (__DEVELOPMENT__) {
+  morganConf = ['dev'];
+} else {
+  morganConf = ['combined', { stream: accessLogStream }];
+}
+
 app
-  // webSocket的请求忽略log
-  .use(morgan('dev', {
-    skip: req => req.originalUrl.indexOf('/ws') !== -1
-  }))
+  .use(morgan(...morganConf))
   .use(cookieParser())
   .use(compression())
   .use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')))
@@ -81,15 +98,6 @@ app.use((req, res, next) => {
 // 转发api请求
 app.use('/api', (req, res) => {
   proxy.web(req, res, { target: config.proxyUrl });
-});
-
-// 转发webSocket请求
-app.use('/ws', (req, res) => {
-  proxy.web(req, res, { target: `${config.proxyUrl}/ws` });
-});
-
-server.on('upgrade', (req, socket, head) => {
-  proxy.ws(req, socket, head);
 });
 
 proxy.on('error', (error, req, res) => {
