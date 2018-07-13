@@ -1,12 +1,12 @@
 const express = require('express')
 const webpack = require('webpack')
 
-const {staticHOST, staticPORT} = require('../config')
+const { host, port } = require('../config')
 const webpackConfig = require('./dev.conf')
 const compiler = webpack(webpackConfig)
 
 const serverOptions = {
-  contentBase: `http://${staticHOST}:${staticPORT}`,
+  contentBase: `http://${host}:${Number(port) + 1}/`,
   quiet: true,
   noInfo: true,
   hot: true,
@@ -25,12 +25,12 @@ app.use('*', (req, res, next) => {
   res.send('static server!')
 })
 
-app.listen(staticPORT, function (err) {
+app.listen(Number(port) + 1, function (err) {
   if (err) {
     console.error(err)
   }
   else {
     console.info(
-      '==> 🚧  Webpack development server listening on port %s', staticPORT)
+      `==> 🚧  Webpack development server listening on ${host}:${Number(port) + 1}`)
   }
 })

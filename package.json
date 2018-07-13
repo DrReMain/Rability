@@ -25,7 +25,7 @@
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc \"./+(src|api)/**/*.js?(x)\"",
     "lint": "eslint --fix api src",
     "test": "cross-env NODE_PATH=src jest src",
-    "lighthouse-report": "lighthouse http://localhost:8080 --view"
+    "lighthouse-report": "lighthouse http://127.0.0.1:8080 --view"
   },
   "dependencies": {
     "antd-mobile": "^2.2.1",

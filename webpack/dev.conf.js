@@ -17,7 +17,7 @@ const webpackConfig = module.exports = {
   context: config.rootDir,
   entry: {
     'main': [
-      `webpack-hot-middleware/client?path=http://${config.staticHOST}:${config.staticPORT}/__webpack_hmr`,
+      `webpack-hot-middleware/client?path=http://${config.host}:${config.port}/__webpack_hmr`,
       './src/client.js',
     ],
   },
@@ -25,7 +25,7 @@ const webpackConfig = module.exports = {
     path: config.assetsDir,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].chunk.js',
-    publicPath: `http://${config.staticHOST}:${config.staticPORT}/dist/`,
+    publicPath: config.assetsPath,
   },
   performance: {
     hints: false,

@@ -46,7 +46,7 @@ const proxy = httpProxy.createProxyServer({
 
 // 日志
 const logDirectory = path.resolve(__dirname, '../logs');
-if (fs.existsSync(logDirectory)) {
+if (!fs.existsSync(logDirectory)) {
   fs.mkdirSync(logDirectory);
 }
 
@@ -221,7 +221,7 @@ app.use(async (req, res) => {
         console.error(err);
       }
 
-      console.info('==> 💻  Open //%s:%s in a browser to view the app.', config.host, config.port);
+      console.info(`==> 💻  Open //${config.host}:${config.port} in a browser to view the app.`);
     });
   } else {
     console.error('==>  ERROR: No PORT environment variable');

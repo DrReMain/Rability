@@ -13,6 +13,7 @@ export default async providers => {
       component: routesMap.get('app'),
       routes: [
         { path: '/', exact: true, component: routesMap.get('home') },
+        { path: '/login', component: routesMap.get('login') },
         { path: '/about', component: routesMap.get('about') },
         { component: routesMap.get('404') }
       ]

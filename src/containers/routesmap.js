@@ -4,6 +4,7 @@ const routesMap = new Map([
   ['app', containers.App],
   ['home', containers.Home],
   ['about', containers.About],
+  ['login', containers.Login],
   ['404', containers.NotFound]
 ]);
 

@@ -4,7 +4,7 @@ const environment = {
   development: {
     isProduction: false,
     assetsPath: `http://${process.env.STATICHOST || process.env.HOST ||
-    'localhost'}:${+process.env.PORT + 1 || 3001}/dist/`, // 开发环境内的静态资源路径
+    '127.0.0.1'}:${+process.env.PORT + 1 || 3001}/dist/`, // 开发环境内的静态资源路径
   },
   production: {
     isProduction: true,
