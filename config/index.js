@@ -3,8 +3,7 @@ const path = require('path');
 const environment = {
   development: {
     isProduction: false,
-    assetsPath: `http://${process.env.STATICHOST || process.env.HOST ||
-    '127.0.0.1'}:${+process.env.PORT + 1 || 3001}/dist/`, // 开发环境内的静态资源路径
+    assetsPath: `http://${process.env.HOST || 'localhost'}:${+process.env.PORT + 1 || 3001}/dist/`, // 开发环境内的静态资源路径
   },
   production: {
     isProduction: true,
@@ -23,6 +22,8 @@ module.exports = Object.assign(
 
     host: process.env.HOST || '127.0.0.1',
     port: process.env.PORT || 3000,
+    staticHOST: process.env.HOST || '127.0.0.1',
+    staticPORT: process.env.PORT ? Number(process.env.PORT) + 1 : 3001,
     apiHOST,
     apiPORT,
 
