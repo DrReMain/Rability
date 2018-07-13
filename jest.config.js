@@ -9,7 +9,7 @@ module.exports = {
   },
   globals: {
     __CLIENT__: process.env.NODE_PATH === 'src',
-    __SERVER__: process.env.NODE_PATH === 'api',
+    __SERVER__: false,
     __DEVELOPMENT__: true,
     __DEVTOOLS__: false,
     __DLLS__: false,

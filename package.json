@@ -12,18 +12,16 @@
     "redux"
   ],
   "scripts": {
-    "start": "run-p start:prod start:api",
+    "start": "start:prod",
     "start:prod": "cross-env NODE_PATH=src NODE_ENV=production PORT=8080 node ./bin/server.js",
-    "start:api": "cross-env NODE_PATH=api NODE_ENV=production node ./bin/api.js",
-    "dev": "run-p dev:client dev:server dev:api",
-    "dev:server": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 WEBPACK_DLLS=true node %NODE_DEBUG_OPTION% ./bin/server.js",
-    "dev:api": "cross-env NODE_PATH=api NODE_ENV=development node ./bin/api.js",
+    "dev": "run-p dev:client dev:server",
+    "dev:server": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 WEBPACK_DLLS=true node ./bin/server.js",
     "dev:client": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 WEBPACK_DLLS=true node ./webpack/webpack.dev.server.js",
     "build": "cross-env NODE_ENV=production webpack --colors --config ./webpack/prod.conf.js",
     "build:dlls": "webpack --colors --config ./webpack/dlls.conf.js",
     "postinstall": "run-p build build:dlls",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc \"./+(src|api)/**/*.js?(x)\"",
-    "lint": "eslint --fix api src",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc \"./+(src)/**/*.js?(x)\"",
+    "lint": "eslint --fix src",
     "test": "cross-env NODE_PATH=src jest src",
     "lighthouse-report": "lighthouse http://127.0.0.1:8080 --view"
   },
@@ -184,7 +182,7 @@
     }
   },
   "lint-staged": {
-    "+(src|api)/**/*.js?(x)": [
+    "+(src)/**/*.js?(x)": [
       "prettier-eslint --write --eslint-config-path .eslintrc",
       "eslint -c .eslintrc",
       "git add"
