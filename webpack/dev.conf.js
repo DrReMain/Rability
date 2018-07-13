@@ -119,7 +119,7 @@ const webpackConfig = module.exports = {
     utils.happyPlugin('jsx', [
       {
         loader: 'babel-loader',
-        exclude: /node_modules(\/|\\)(?!(@feathersjs))/,
+        exclude: /node_modules/,
         options: utils.babelrcObject(),
       }, {
         loader: 'eslint-loader',

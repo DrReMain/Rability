@@ -36,7 +36,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules(\/|\\)(?!(@feathersjs))/,
+        exclude: /node_modules/,
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
