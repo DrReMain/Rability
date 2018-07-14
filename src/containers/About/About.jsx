@@ -8,9 +8,15 @@ export default class About extends Component {
     client: PropTypes.func.isRequired
   };
 
+  state = {
+    data: []
+  };
+
   request = async () => {
     const res = await this.props.client.get('https://api.github.com/users/octocat/gists');
-    console.log(res);
+    this.setState({
+      data: res
+    });
   };
 
   render() {
@@ -18,6 +24,13 @@ export default class About extends Component {
       <div>
         <h1>About!!!!!!</h1>
         <button onClick={this.request}>request</button>
+        <ul>
+          {this.state.data.map(item => (
+            <li key={item.id}>
+              <a href={item.url}>{item.url}</a>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
