@@ -15,7 +15,7 @@
     "start": "start:prod",
     "start:prod": "cross-env NODE_PATH=src NODE_ENV=production PORT=8080 node ./bin/server.js",
     "dev": "run-p dev:client dev:server",
-    "dev:server": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 WEBPACK_DLLS=true node ./bin/server.js",
+    "dev:server": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 WEBPACK_DLLS=true node $NODE_DEBUG_OPTION ./bin/server.js",
     "dev:client": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 WEBPACK_DLLS=true node ./webpack/webpack.dev.server.js",
     "build": "cross-env NODE_ENV=production webpack --colors --config ./webpack/prod.conf.js",
     "build:dlls": "webpack --colors --config ./webpack/dlls.conf.js",
