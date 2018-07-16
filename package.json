@@ -12,8 +12,7 @@
     "redux"
   ],
   "scripts": {
-    "start": "start:prod",
-    "start:prod": "cross-env NODE_PATH=src NODE_ENV=production PORT=8080 node ./bin/server.js",
+    "start": "cross-env NODE_PATH=src NODE_ENV=production PORT=8080 node ./bin/server.js",
     "dev": "run-p dev:client dev:server",
     "dev:server": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 WEBPACK_DLLS=true node $NODE_DEBUG_OPTION ./bin/server.js",
     "dev:client": "cross-env NODE_PATH=src NODE_ENV=development PORT=3000 WEBPACK_DLLS=true node ./webpack/webpack.dev.server.js",
