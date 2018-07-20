@@ -1,12 +1,36 @@
 @import "antd-mobile/dist/antd-mobile.css";
 
 :global {
-
-  html {
-    font-size: 10000/750vw !important;
+  // 414px以下fontSize以设备屏幕宽度为基准
+  @media screen and (max-width: 414px) {
+    html {
+      font-size: 10000/750vw !important;
+    }
+    body {
+      width: 100%;
+    }
   }
-
-  .danger {
-    color: #ff5d5b;
+  // 414px以上fontSize以414px宽度为基准
+  @media screen and (min-width: 414px) {
+    html {
+      font-size: 10000/750 * 4.14px !important;
+    }
+    body {
+      width: 414px !important;
+    }
+  }
+  html,
+  body{
+    margin: 0 auto !important;
+    padding: 0 !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    position: relative !important;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  button {
+    cursor: pointer;
   }
 }

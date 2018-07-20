@@ -13,9 +13,7 @@ module.exports = ({ file }) => ({
       browsers: ['> 5%'],
     },
     'cssnano': {
-      preset: 'advanced',
-      autoprefixer: false,
-      'postcss-zindex': false,
+      preset: 'default',
     },
     // ...
     // and if you want to compress,

@@ -1,3 +1,81 @@
+@import "../../theme/theme";
+
 .app {
-  width: 100%;
+  :global {
+    // default grid
+    @default-padding: 0.8rem;
+    .header-default,
+    .footer-default {
+      width: 100%;
+      height: @default-padding;
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 999;
+    }
+    .header-default {
+      background: @theme-primary-color;
+      top: 0;
+    }
+    .main-default {
+      padding: @default-padding 0;
+    }
+    .footer-default {
+      background: @theme-primary-color;
+      bottom: 0;
+    }
+
+    /**
+     *  路由动画
+     */
+    @duration: 0.45s;
+    @timing-one: ease-out;
+    @timing-two: ease-in;
+
+    .route-enter {
+      opacity: 0.01;
+
+    }
+    .route-appear {
+      opacity: 0.01;
+    }
+    .route-exit {
+      opacity: 1;
+    }
+    .route-enter.route-enter-active :local {
+      opacity: 1;
+      transition: opacity @duration @timing-one;
+    }
+    .route-appear.route-appear-active :local {
+      opacity: 1;
+      transition: opacity @duration @timing-one;
+    }
+    .route-exit.route-exit-active :local {
+      opacity: 0.01;
+      transition: opacity @duration @timing-two;
+    }
+
+    // route 动画
+    //.<page-name>.route-enter {
+    //  top: 100%;
+    //}
+    //.<page-name>.route-appear {
+    //  top: 100%;
+    //}
+    //.<page-name>.route-exit {
+    //  top: 0;
+    //}
+    //.<page-name>.route-enter.route-enter-active :local {
+    //  top: 0;
+    //  transition: top @duration @timing-one;
+    //}
+    //.<page-name>.route-appear.route-appear-active :local {
+    //  top: 0;
+    //  transition: top @duration @timing-one;
+    //}
+    //.<page-name>.route-exit.route-exit-active :local {
+    //  top: 100%;
+    //  transition: top @duration @timing-two;
+    //}
+  }
 }

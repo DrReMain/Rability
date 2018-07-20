@@ -54,7 +54,7 @@ const webpackConfig = module.exports = {
         loader: 'happypack/loader?id=less',
         exclude: /node_modules/,
       }, {
-        test: /\.scss$/,
+        test: /\.(scss|sass)$/,
         loader: 'happypack/loader?id=sass',
         exclude: /node_modules/,
       }, {

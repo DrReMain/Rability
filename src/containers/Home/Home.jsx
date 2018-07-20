@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router-dom';
 import { NavBar, Icon, NoticeBar, Carousel, WingBlank, Grid } from 'antd-mobile';
 
-import style from './Home.less';
+import './Home.less';
 
 @connect()
 export default class Home extends Component {
+  static propTypes = {
+    // location: PropTypes.objectOf(PropTypes.any).isRequired
+  };
+
   state = {
     data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
     imgHeight: 176,
@@ -34,8 +39,9 @@ export default class Home extends Component {
     }));
 
     return (
-      <div className="home">
-        <Helmet title="Home" />
+      <section className="home">
+        {/* 每个路由第一级标签必须是section，且类名是此页名称字符串, 在app.less中可根据类名自定义路由动画 */}
+        <Helmet title="home" />
         <NavBar
           mode="dark"
           leftContent="Back"
@@ -46,12 +52,12 @@ export default class Home extends Component {
         >
           HOME
         </NavBar>
-        <div className={style.container}>
+        <div className="container">
           <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }}>
             Notice: The arrival time of incomes and transfers of Yu &#39;E Bao will be delayed during National Day..
           </NoticeBar>
         </div>
-        <div className={style.container}>
+        <div className="container">
           <WingBlank>
             <Carousel
               autoplay={false}
@@ -80,15 +86,15 @@ export default class Home extends Component {
             </Carousel>
           </WingBlank>
         </div>
-        <div className={style.container}>
+        <div className="container">
           <Grid data={data} columnNum={3} activeStyle={false} hasLine />
         </div>
-        <div className={style.container}>
+        <div className="container">
           <p className="danger">
             <Link to="/about">about</Link>
           </p>
         </div>
-      </div>
+      </section>
     );
   }
 }

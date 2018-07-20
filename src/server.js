@@ -114,7 +114,7 @@ proxy.on('error', (error, req, res) => {
 
 app.use(async (req, res) => {
   if (__DEVELOPMENT__) {
-    // 如果是开发环境，不缓存 webpack stats
+    // 如果是开发环境，不缓存 webpack stats, 并开启热更新
     global.webpackIsomorphicTools.refresh();
   }
   const providers = {
