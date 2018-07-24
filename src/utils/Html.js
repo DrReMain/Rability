@@ -19,16 +19,19 @@ const Html = ({
         {head.link.toComponent()}
         {head.script.toComponent()}
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+          content="
+          width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"
         />
-        <link rel="manifest" href="/manifest.json" />
+        <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="application-name" content="React App" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-mobile-web-app-title" content="React App" />
+        <meta name="application-name" content="React App" />
         <meta name="theme-color" content="#000000" />
         {/* styles (will be present only in production with webpack extract text plugin) */}
         {assets.styles &&

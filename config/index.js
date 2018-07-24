@@ -27,9 +27,6 @@ module.exports = Object.assign(
     apiHOST,
     apiPORT,
 
-    dynamicRoutes: false, // 是否从数据库获取路由
-    routesAPI: '', // 获取路由的接口地址
-
     proxyUrl: `http://${apiHOST}:${apiPORT}`,
 
     cssModules: true,

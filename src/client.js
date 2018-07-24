@@ -12,7 +12,7 @@ import { CookieStorage } from 'redux-persist-cookie-storage';
 import Cookies from 'cookies-js';
 import createStore from './redux/createStore';
 import request from './utils/request';
-import dynamicRoutes from './dynamicRoutes';
+import routes from './routes';
 import isOnline from './utils/isOnline';
 import asyncMatchRoutes from './utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from './components';
@@ -83,13 +83,12 @@ const providers = {
 
   await Loadable.preloadReady();
 
-  const routes = await dynamicRoutes(providers);
   await hydrate(routes);
 
   // Hot reload
   if (module.hot) {
-    module.hot.accept('./dynamicRoutes', async () => {
-      const nextRoutes = await require('./dynamicRoutes').default();
+    module.hot.accept('./routes', () => {
+      const nextRoutes = require('./routes').default;
       hydrate(nextRoutes).catch(err => {
         console.error('Error on routes reload:', err);
       });

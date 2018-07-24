@@ -27,7 +27,7 @@ import config from '../config';
 import createStore from '../src/redux/createStore';
 import request from './utils/request';
 import Html from '../src/utils/Html';
-import dynamicRoutes from './dynamicRoutes';
+import routes from './routes';
 import { getChunks, waitChunks } from '../src/utils/chunks';
 import asyncMatchRoutes from '../src/utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from '../src/components';
@@ -127,7 +127,12 @@ app.use(async (req, res) => {
 
   const persistConfig = {
     key: 'root',
-    storage: new CookieStorage(cookieJar),
+    storage: new CookieStorage(cookieJar, {
+      expiration: {
+        // 数据持久化设定时限60秒
+        default: 60
+      }
+    }),
     stateReconciler: (inboundState, originalState) => originalState,
     whitelist: ['auth']
   };
@@ -157,7 +162,6 @@ app.use(async (req, res) => {
   try {
     // preload() -> components[]
     // console.log(req.path, '-', req.originalUrl);
-    const routes = await dynamicRoutes(providers);
     const { components, match, params } = await asyncMatchRoutes(routes, req.path);
     await trigger('fetch', components, {
       ...providers,

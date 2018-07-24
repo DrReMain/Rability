@@ -49,7 +49,7 @@ module.exports = {
                 importLoaders: 1,
                 sourceMap: true,
                 localIdentName: config.css,
-                minimize: true,
+                minimize: false,
               },
             }, {
               loader: 'postcss-loader',
@@ -73,7 +73,7 @@ module.exports = {
               options: {
                 importLoaders: 1,
                 sourceMap: true,
-                minimize: true,
+                minimize: false,
               },
             }, {
               loader: 'postcss-loader',
@@ -99,7 +99,7 @@ module.exports = {
                 importLoaders: 2,
                 sourceMap: true,
                 localIdentName: config.css,
-                minimize: true,
+                minimize: false,
               },
             }, {
               loader: 'postcss-loader',
@@ -132,7 +132,7 @@ module.exports = {
                 importLoaders: 2,
                 sourceMap: true,
                 localIdentName: config.css,
-                minimize: true,
+                minimize: false,
               },
             }, {
               loader: 'postcss-loader',

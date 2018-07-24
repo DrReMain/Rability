@@ -137,6 +137,7 @@ const webpackConfig = module.exports = {
           importLoaders: 1,
           sourceMap: true,
           localIdentName: config.css,
+          minimize: false,
         },
       }, {
         loader: 'postcss-loader',
@@ -157,6 +158,7 @@ const webpackConfig = module.exports = {
         options: {
           importLoaders: 1,
           sourceMap: true,
+          minimize: false,
         },
       }, {
         loader: 'postcss-loader',
@@ -179,6 +181,7 @@ const webpackConfig = module.exports = {
           importLoaders: 2,
           sourceMap: true,
           localIdentName: config.css,
+          minimize: false,
         },
       }, {
         loader: 'postcss-loader',
@@ -207,6 +210,7 @@ const webpackConfig = module.exports = {
           importLoaders: 2,
           sourceMap: true,
           localIdentName: config.css,
+          minimize: false,
         },
       }, {
         loader: 'postcss-loader',
@@ -253,6 +257,3 @@ const validDlls = function (dllNames = 'vendor') {
 if (process.env.WEBPACK_DLLS === 'true' && validDlls('vendor')) {
   utils.createDLL(webpackConfig, 'vendor')
 }
-
-
-

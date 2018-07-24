@@ -1,0 +1,27 @@
+@import "../../theme/theme";
+
+:global {
+  // -- 覆盖全局样式 ------------------------------
+  // page className
+  main.template {
+    @headerHeight: 0.8rem;
+    @footerHeight: 0.8rem;
+    header.header {
+      height: @headerHeight;
+      background: @theme-primary-color;
+    }
+    section.content {
+      padding: @headerHeight 0 @footerHeight;
+    }
+    footer.footer {
+      height: @footerHeight;
+      background: @theme-primary-color;
+    }
+  }
+
+  // ...覆盖当前页内antd的样式
+}
+
+.className {
+
+}

@@ -14,10 +14,17 @@ export default providers => ({ dispatch, getState }) => next => action => {
 
   const actionPromise = promise(providers, dispatch);
   actionPromise
-    .then(result => next({ ...rest, result, type: SUCCESS }), err => next({ ...rest, err, type: FAILURE }))
-    .catch(err => {
-      console.error('MIDDLEWARE ERROR: ', err);
-      next({ ...rest, err, type: FAILURE });
+    .then(
+      result => next({ ...rest, result, type: SUCCESS }),
+      error =>
+        // axios请求全局错误拦截 ...
+        // e.g
+        // if (error.errcode === ????) { action()(dispatch, getState) }
+        next({ ...rest, error, type: FAILURE })
+    )
+    .catch(error => {
+      console.error('MIDDLEWARE ERROR: ', error);
+      next({ ...rest, error, type: FAILURE });
     });
   return actionPromise;
 };

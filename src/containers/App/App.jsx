@@ -1,38 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Switch, Route } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import newRenderRoutes from '../../utils/newRenderRoutes';
 
 import './global.less';
-import styles from './App.less';
+import './App.less';
 
 const helmetConf = {
   titleTemplate: 'App: %s',
   meta: [{ charset: 'utf-8' }]
 };
-
-const renderRoutes = (routes, extraProps = {}, switchProps = {}) =>
-  routes ? (
-    <Switch {...switchProps}>
-      {routes.map((route, i) => (
-        <Route
-          key={route.key || i}
-          path={route.path}
-          exact={route.exact}
-          strict={route.strict}
-          render={props =>
-            route.render ? (
-              route.render({ ...props, ...extraProps, route })
-            ) : (
-              <route.component {...props} {...extraProps} route={route} />
-            )
-          }
-        />
-      ))}
-    </Switch>
-  ) : null;
 
 @connect()
 @withRouter
@@ -45,21 +25,15 @@ export default class App extends Component {
   render() {
     const { route, location } = this.props;
     return (
-      <div className={styles.app}>
-        {/* 此类名固定，不可更改 */}
-        {/* meta info */}
+      <div className="app">
         <Helmet {...helmetConf} />
-        {/*  header nav */}
-        <header className="header-default" />
-        <main className="main-default">
+        <div className="route-container">
           <TransitionGroup>
-            <CSSTransition key={location.key} classNames="route" timeout={450} appear>
-              {renderRoutes(route.routes, { extraProp: null }, { location })}
+            <CSSTransition key={location.key} classNames="route" timeout={350}>
+              {newRenderRoutes(route.routes, { visible: true }, { location })}
             </CSSTransition>
           </TransitionGroup>
-        </main>
-        {/* footer nav */}
-        <footer className="footer-default" />
+        </div>
       </div>
     );
   }

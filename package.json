@@ -1,11 +1,11 @@
 {
-  "name": "react-ssr",
-  "version": "1.1.0",
+  "name": "rability",
+  "version": "1.2.0",
   "main": "bin/server.js",
   "author": "Dr.ReMain <51071534@qq.com>",
   "license": "MIT",
   "keywords": [
-    "webpack v3",
+    "webpack",
     "express",
     "react v16",
     "universal",
@@ -86,6 +86,7 @@
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
+    "autoprefixer": "^9.0.0",
     "babel-eslint": "^8.2.2",
     "babel-jest": "^23.0.1",
     "babel-loader": "^7.1.4",
@@ -117,9 +118,9 @@
     "npm-run-all": "^4.1.2",
     "piping": "^1.0.0-rc.4",
     "postcss-browser-reporter": "^0.5.0",
-    "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.1",
+    "postcss-preset-env": "^5.2.2",
     "postcss-reporter": "^5.0.0",
     "postcss-url": "^7.3.1",
     "prettier-eslint-cli": "^4.7.1",

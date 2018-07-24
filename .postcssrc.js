@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV === 'development';
+
 module.exports = ({ file }) => ({
   plugins: {
     'postcss-import': { root: file.dirname },
@@ -9,15 +11,15 @@ module.exports = ({ file }) => ({
     ],
     'postcss-aspect-ratio-mini': {},
     'postcss-write-svg': { utf8: false },
-    'postcss-cssnext': {
+    'postcss-preset-env': {
+      stage: 0,
       browsers: ['> 5%'],
     },
-    'cssnano': {
+    'autoprefixer':{},
+    'cssnano': isDev ? false : {
       preset: 'default',
     },
     // ...
-    // and if you want to compress,
-    // just use css-loader option that already use cssnano under the hood
     'postcss-browser-reporter': {},
     'postcss-reporter': {},
   },
