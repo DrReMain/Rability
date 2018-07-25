@@ -1,6 +1,6 @@
 {
   "name": "rability",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "bin/server.js",
   "author": "Dr.ReMain <51071534@qq.com>",
   "license": "MIT",
@@ -162,7 +162,7 @@
         "import",
         {
           "libraryName": "antd-mobile",
-          "style": "css"
+          "style": true
         }
       ],
       "transform-runtime",
@@ -189,5 +189,9 @@
       "eslint -c .eslintrc",
       "git add"
     ]
+  },
+  "antTheme": {
+    "brand-primary": "red",
+    "color-text-base":  "#333"
   }
 }

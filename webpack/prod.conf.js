@@ -8,6 +8,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const Loadable = require('react-loadable/webpack')
 const config = require('../config')
+const antTheme = require('../package').antTheme
 
 // universal-tools
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
@@ -86,7 +87,7 @@ module.exports = {
             },
           ],
         }),
-        include: /node_modules(\/|\\)(antd-mobile|normalize\.css)/,
+        include: /node_modules/,
       }, {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({
@@ -121,6 +122,39 @@ module.exports = {
         }),
         exclude: /node_modules/,
       }, {
+        test: /\.less/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 2,
+                sourceMap: true,
+                minimize: false,
+              },
+            }, {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+                config: {
+                  path: '.postcssrc.js',
+                },
+              },
+            }, {
+              loader: 'less-loader',
+              options: {
+                sourceMapContents: true,
+                javascriptEnabled: true,
+                modifyVars: antTheme,
+                outputStyle: 'expanded',
+                sourceMap: true,
+              },
+            },
+          ],
+        }),
+        include: /node_modules/,
+      },{
         test: /\.(scss|sass)$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',

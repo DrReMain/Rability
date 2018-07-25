@@ -6,6 +6,7 @@ const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 const Loadable = require('react-loadable/webpack')
 const config = require('../config')
 const utils = require('./utils')
+const antTheme = require('../package').antTheme
 
 // universal-tools
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
@@ -47,12 +48,16 @@ const webpackConfig = module.exports = {
         exclude: /node_modules/,
       }, {
         test: /\.css$/,
-        loader: 'happypack/loader?id=antd',
-        include: /node_modules(\/|\\)(antd-mobile|normalize\.css)/,
+        loader: 'happypack/loader?id=nodecss',
+        include: /node_modules/,
       }, {
         test: /\.less$/,
         loader: 'happypack/loader?id=less',
         exclude: /node_modules/,
+      }, {
+        test: /\.less/,
+        loader: 'happypack/loader?id=nodeless',
+        include: /node_modules/,
       }, {
         test: /\.(scss|sass)$/,
         loader: 'happypack/loader?id=sass',
@@ -149,7 +154,7 @@ const webpackConfig = module.exports = {
         },
       },
     ]),
-    utils.happyPlugin('antd', [
+    utils.happyPlugin('nodecss', [
       {
         loader: 'style-loader',
         options: { sourceMap: true },
@@ -167,6 +172,35 @@ const webpackConfig = module.exports = {
           config: {
             path: '.postcssrc.js',
           },
+        },
+      },
+    ]),
+    utils.happyPlugin('nodeless', [
+      {
+        loader: 'style-loader',
+        options: { sourceMap: true },
+      }, {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 2,
+          sourceMap: true,
+          minimize: false,
+        },
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+          config: {
+            path: '.postcssrc.js',
+          },
+        },
+      }, {
+        loader: 'less-loader',
+        options: {
+          javascriptEnabled: true,
+          modifyVars: antTheme,
+          outputStyle: 'expanded',
+          sourceMap: true,
         },
       },
     ]),
