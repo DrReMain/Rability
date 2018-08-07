@@ -1,6 +1,6 @@
 {
   "name": "rability",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "bin/server.js",
   "author": "Dr.ReMain <51071534@qq.com>",
   "license": "MIT",

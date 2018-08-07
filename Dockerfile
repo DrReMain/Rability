@@ -16,7 +16,7 @@ WORKDIR /app
 # Copy required stuff
 COPY . .
 
-RUN npm install --registry=https://registry.npm.taobao.org
+RUN npm install --registry=https://registry.npm.taobao.org --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
 
 RUN ["chmod", "+x", "/app/docker_start.sh"]
 
