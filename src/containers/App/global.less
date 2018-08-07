@@ -50,7 +50,7 @@
     position: absolute !important;
     left: 0 !important;
     right: 0 !important;
-    z-index: 999 !important;
+    z-index: 899 !important;
     height: 0.8rem;
   }
   header.header {
@@ -68,7 +68,7 @@
     bottom: 0 !important;
   }
 
-  // ---------------------------------------
+  // - NProgress--------------------------------------
   /* Make clicks pass-through */
   #nprogress {
     pointer-events: none;
@@ -151,10 +151,32 @@
     }
   }
 
+  // -------------------------------------------------------
+
   * {
     box-sizing: border-box;
   }
-  button {
+  input::-webkit-input-placeholder{
+    color: #ccc;
+  }
+  input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+    color: #ccc;
+  }
+  input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+  }
+  input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+    color: #ccc;
+  }
+  button,
+  a{
     cursor: pointer;
+  }
+  .loadable-loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

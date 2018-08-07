@@ -12,7 +12,7 @@ const environment = {
 }[process.env.NODE_ENV || 'development'];
 
 const apiHOST = process.env.APIHOST || '127.0.0.1';
-const apiPORT = process.env.APIPORT || 3030;
+const apiPORT = process.env.APIPORT || 80;
 
 module.exports = Object.assign(
   {
@@ -27,10 +27,14 @@ module.exports = Object.assign(
     apiHOST,
     apiPORT,
 
+    // 接口地址
     proxyUrl: `http://${apiHOST}:${apiPORT}`,
 
     cssModules: true,
     css: '[name]_[local]__[hash:base64:5]',
+
+    // token有效期(s)
+    tokenExpiration: 6 * 60 * 60
   },
   environment,
 );

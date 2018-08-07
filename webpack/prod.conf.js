@@ -16,7 +16,7 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
 
 module.exports = {
   mode: 'production',
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   context: config.rootDir,
   entry: {
     main: [
@@ -154,7 +154,7 @@ module.exports = {
           ],
         }),
         include: /node_modules/,
-      },{
+      }, {
         test: /\.(scss|sass)$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -252,7 +252,9 @@ module.exports = {
 
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
-    new UglifyJsPlugin(),
+    new UglifyJsPlugin({
+      parallel: true,
+    }),
 
     new webpack.optimize.ModuleConcatenationPlugin(),
 
@@ -278,7 +280,7 @@ module.exports = {
 
       directoryIndex: '/',
       verbose: true,
-      navigateFallback: '/dist/index.html'
+      navigateFallback: '/dist/index.html',
     }),
 
   ],

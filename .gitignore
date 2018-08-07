@@ -3,16 +3,11 @@
 npm-debug.log*
 yarn-error.log*
 
-# Runtime data
-*.pid
-.tmp
-
 ################
 .DS_Store
 node_modules/
 package-lock.json
 yarn.lock
-build.commond.md
 
 ###############
 .idea/
@@ -24,7 +19,6 @@ static/dist/
 webpack-assets.json
 webpack-stats.json
 webpack/dlls/*.json
-api/**/*.nedb
 
 ###############
 *.report.html

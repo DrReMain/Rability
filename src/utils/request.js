@@ -4,6 +4,7 @@ import config from '../../config';
 export default function (req) {
   const instance = axios.create({
     baseURL: __SERVER__ ? config.proxyUrl : '/api'
+    // 默认formdata后get请求需单独配置
     // transformRequest: [
     //   data =>
     //     Object.entries(data)

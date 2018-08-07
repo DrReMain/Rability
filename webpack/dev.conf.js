@@ -14,7 +14,7 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
 
 const webpackConfig = module.exports = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-eval-source-map',
   context: config.rootDir,
   entry: {
     'main': [

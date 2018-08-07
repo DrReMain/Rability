@@ -1,15 +1,16 @@
 {
   "name": "rability",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "bin/server.js",
   "author": "Dr.ReMain <51071534@qq.com>",
   "license": "MIT",
   "keywords": [
     "webpack",
     "express",
-    "react v16",
+    "react",
     "universal",
-    "redux"
+    "redux",
+    "ant.design"
   ],
   "scripts": {
     "start": "cross-env NODE_PATH=src NODE_ENV=production PORT=8080 node ./bin/server.js",
@@ -191,7 +192,7 @@
     ]
   },
   "antTheme": {
-    "brand-primary": "red",
-    "color-text-base":  "#333"
+    "brand-primary": "rgba(44, 202, 111, 1)",
+    "brand-primary-tap": "rgba(67, 216, 130, 1)"
   }
 }

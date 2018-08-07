@@ -13,16 +13,23 @@ export default providers => ({ dispatch, getState }) => next => action => {
   next({ ...rest, type: REQUEST });
 
   const actionPromise = promise(providers, dispatch);
+  console.log('显示菊花');
   actionPromise
     .then(
-      result => next({ ...rest, result, type: SUCCESS }),
-      error =>
+      result => {
+        console.log('隐藏菊花');
+        return next({ ...rest, result, type: SUCCESS });
+      },
+      error => {
+        console.log('隐藏菊花');
         // axios请求全局错误拦截 ...
         // e.g
-        // if (error.errcode === ????) { action()(dispatch, getState) }
-        next({ ...rest, error, type: FAILURE })
+        // if (error.errcode === ????) { dispatch( action({ }) ) }
+        return next({ ...rest, error, type: FAILURE });
+      }
     )
     .catch(error => {
+      console.log('隐藏菊花');
       console.error('MIDDLEWARE ERROR: ', error);
       next({ ...rest, error, type: FAILURE });
     });

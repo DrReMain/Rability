@@ -100,6 +100,11 @@ app.use('/api', (req, res) => {
   proxy.web(req, res, { target: config.proxyUrl });
 });
 
+proxy.on('proxyReq', (proxyReq, req) => {
+  const ip = req.headers['X-Forwarded-For'] || req.connection.remoteAddress;
+  proxyReq.setHeader('X-IP-Header', ip);
+});
+
 proxy.on('error', (error, req, res) => {
   if (error.code !== 'ECONNRESET') {
     console.error('proxy error', error);
@@ -129,8 +134,7 @@ app.use(async (req, res) => {
     key: 'root',
     storage: new CookieStorage(cookieJar, {
       expiration: {
-        // 数据持久化设定时限60秒
-        default: 60
+        default: config.tokenExpiration
       }
     }),
     stateReconciler: (inboundState, originalState) => originalState,
@@ -194,7 +198,7 @@ app.use(async (req, res) => {
     }
 
     const locationState = store.getState().router.location;
-    if (req.originalUrl !== locationState.pathname + locationState.search) {
+    if (decodeURIComponent(req.originalUrl) !== decodeURIComponent(locationState.pathname + locationState.search)) {
       return res.redirect(301, locationState.pathname);
     }
 
