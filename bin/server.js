@@ -1,5 +1,5 @@
 require('babel-polyfill');
-require('babel-register')(require('../config/babelRegisterConf'));
+require('babel-register')(require('../helps/babelRegisterConf'));
 
 const config = require('../config');
 

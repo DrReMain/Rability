@@ -28,7 +28,7 @@ import createStore from '../src/redux/createStore';
 import request from './utils/request';
 import Html from '../src/utils/Html';
 import routes from './routes';
-import { getChunks, waitChunks } from '../src/utils/chunks';
+import { getChunks, waitChunks } from '../helps/chunks';
 import asyncMatchRoutes from '../src/utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from '../src/components';
 
