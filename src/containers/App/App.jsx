@@ -12,8 +12,7 @@ import './global.less';
 import './App.less';
 
 const helmetConf = {
-  titleTemplate: '%s',
-  meta: [{ charset: 'utf-8' }]
+  titleTemplate: '%s'
 };
 
 @provideHooks({

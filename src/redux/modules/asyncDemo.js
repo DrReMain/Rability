@@ -3,7 +3,9 @@ const GET_SUCCESS = 'projectName/asyncDemo/GET_SUCCESS';
 const GET_FAIL = 'projectName/asyncDemo/GET_FAIL';
 
 const initialState = {
-  msg: 'default msg'
+  obj: {
+    name: 'default'
+  }
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -15,7 +17,7 @@ export default function reducer(state = initialState, action = {}) {
     case GET_SUCCESS:
       return {
         ...state,
-        msg: action.result.msg
+        obj: action.result
       };
     case GET_FAIL:
       return {
@@ -34,10 +36,9 @@ export default function reducer(state = initialState, action = {}) {
 export function getMessage(data = { prop1: '', prop2: '' }) {
   return {
     types: [GET, GET_SUCCESS, GET_FAIL],
-    promise: async ({ client }, getState) => {
+    promise: async ({ client }) => {
       try {
-        data.anotherProp = getState().prop;
-        return await client.post('/url1', data);
+        return await client.get('https://api.github.com', data);
       } catch (error) {
         throw error;
       }

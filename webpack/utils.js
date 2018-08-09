@@ -1,9 +1,9 @@
-const path = require('path')
-const fs = require('fs')
-const webpack = require('webpack')
-const HappyPack = require('happypack')
-const happyThreadPool = HappyPack.ThreadPool({ size: 5 })
-const config = require('../config')
+const path = require('path');
+const fs = require('fs');
+const webpack = require('webpack');
+const HappyPack = require('happypack');
+const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
+const config = require('../config');
 
 function happyPlugin(id, loaders) {
   return new HappyPack({
@@ -35,20 +35,21 @@ function createDLL(conf, dllName) {
 }
 
 function babelrcObject() {
-  const babelrc = require('../package').babel
-  const babelrcDevPlugins = babelrc.env && babelrc.env.development &&
-    babelrc.env.development.plugins
+  const babelrc = fs.readFileSync(path.resolve(__dirname, '../.babelrc'), 'utf-8');
+  const babelConf = JSON.parse(babelrc);
+  const babelrcDevPlugins = babelConf.env && babelConf.env.development &&
+    babelConf.env.development.plugins
 
   const babelLoaderQuery = Object.assign(
     {},
-    babelrc,
+    babelConf,
     {
-      plugins: [...babelrc.plugins, ...babelrcDevPlugins],
+      plugins: [...babelConf.plugins, ...babelrcDevPlugins],
     },
-  )
-  delete babelLoaderQuery.env
+  );
+  delete babelLoaderQuery.env;
 
   return babelLoaderQuery
 }
 
-module.exports = { happyPlugin, createDLL, babelrcObject }
+module.exports = { happyPlugin, createDLL, babelrcObject };

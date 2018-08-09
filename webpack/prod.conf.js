@@ -38,6 +38,7 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -64,6 +65,7 @@ module.exports = {
           ],
         }),
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -121,6 +123,7 @@ module.exports = {
           ],
         }),
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.less/,
         loader: ExtractTextPlugin.extract({
@@ -187,6 +190,7 @@ module.exports = {
           ],
         }),
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
@@ -228,7 +232,7 @@ module.exports = {
       config.srcDir,
       'node_modules',
     ],
-    extensions: ['.json', '.js', '.jsx'],
+    extensions: ['.json', '.js', '.jsx', '.css', '.less', '.scss', '.sass'],
   },
   plugins: [
 
@@ -282,6 +286,5 @@ module.exports = {
       verbose: true,
       navigateFallback: '/dist/index.html',
     }),
-
   ],
-}
+};

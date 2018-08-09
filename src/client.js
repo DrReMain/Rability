@@ -92,7 +92,7 @@ const providers = {
     module.hot.accept('./routes', () => {
       const nextRoutes = require('./routes').default;
       hydrate(nextRoutes).catch(err => {
-        console.error('Error on routes.js reload:', err);
+        console.error('ERROR on `routes.js` reload:', err);
       });
     });
   }

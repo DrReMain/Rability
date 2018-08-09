@@ -1,7 +1,11 @@
-const babelrc = require('../package.json').babel
+const fs = require('fs');
+const path = require('path');
 
-if (Array.isArray(babelrc.plugins)) {
-  babelrc.plugins.push('dynamic-import-node')
+const babelrc = fs.readFileSync(path.resolve(__dirname, '../.babelrc'), 'utf-8');
+const babelConf = JSON.parse(babelrc);
+
+if (Array.isArray(babelConf.plugins)) {
+  babelConf.plugins.push('dynamic-import-node')
 }
 
-module.exports = babelrc
+module.exports = babelConf;

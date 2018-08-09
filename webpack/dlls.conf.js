@@ -1,6 +1,7 @@
-const path = require('path')
-const webpack = require('webpack')
-const config = require('../config')
+const path = require('path');
+const webpack = require('webpack');
+const config = require('../config');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'development',
@@ -9,14 +10,7 @@ module.exports = {
   entry: {
     vendor: [
       'babel-polyfill',
-
-      //
-      // Generate this list using the following command against the stdout of
-      // webpack running against the source bundle config (dev/prod.js):
-      //
-      //    webpack --config webpack/dev.config.js --display-modules | egrep -o 'babel-runtime/\S+' | sed 's/\.js$//' | sort | uniq
-
-      // <babel-runtime>
+      // </babel-runtime>
       'babel-runtime/core-js/array/from',
       'babel-runtime/core-js/get-iterator',
       'babel-runtime/core-js/is-iterable',
@@ -49,30 +43,32 @@ module.exports = {
       'babel-runtime/regenerator/index',
       // </babel-runtime>
 
-      'axios',
-      'final-form',
-      'multireducer',
       'react',
       'react-dom',
-      'react-final-form',
       'react-helmet',
       'react-hot-loader',
+      'redux',
       'react-redux',
       'react-router-dom',
       'react-router-redux',
-      'redux',
+      'redux-auth-wrapper',
+      'axios',
+      'multireducer',
       'antd-mobile',
       'rc-animate',
       'rc-queue-anim',
       'rc-tween-one',
       'react-transition-group',
       'serialize-javascript',
+      'classnames',
+      'lodash',
+      'nprogress',
     ],
   },
   output: {
     path: path.resolve(config.assetsDir, './dlls'),
     filename: 'dll_[name].js',
-    library: 'DLL_[name]_[hash]',
+    library: '_dll_[name]_[hash]',
   },
 
   performance: {
@@ -86,7 +82,9 @@ module.exports = {
 
     new webpack.DllPlugin({
       path: path.join(config.rootDir, './webpack/dlls/[name].json'),
-      name: 'DLL_[name]_[hash]',
+      name: '_dll_[name]_[hash]',//和output.library中一致，也就是输出的manifest.json中的 name值
     }),
+
+    new BundleAnalyzerPlugin(),
   ],
-}
+};

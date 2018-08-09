@@ -20,6 +20,7 @@ const Html = ({
         {head.script.toComponent()}
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
+        <meta charSet="utf-8" />
         <meta
           name="viewport"
           content="

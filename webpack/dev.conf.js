@@ -4,6 +4,7 @@ const fs = require('fs')
 const webpack = require('webpack')
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 const Loadable = require('react-loadable/webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const config = require('../config')
 const utils = require('./utils')
 const antTheme = require('../package').antTheme
@@ -26,7 +27,6 @@ const webpackConfig = module.exports = {
     path: config.assetsDir,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].chunk.js',
-    // publicPath: `http://${config.staticHOST}:${config.staticPORT}/dist/`,
     publicPath: config.assetsPath,
   },
   performance: {
@@ -37,15 +37,16 @@ const webpackConfig = module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'happypack/loader?id=jsx',
-        include: [config.srcDir],
+        include: config.srcDir,
       }, {
         test: /\.json$/,
         loader: 'happypack/loader?id=json',
-        include: [config.srcDir],
+        include: config.srcDir,
       }, {
         test: /\.css$/,
         loader: 'happypack/loader?id=css',
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.css$/,
         loader: 'happypack/loader?id=nodecss',
@@ -54,6 +55,7 @@ const webpackConfig = module.exports = {
         test: /\.less$/,
         loader: 'happypack/loader?id=less',
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.less/,
         loader: 'happypack/loader?id=nodeless',
@@ -62,6 +64,7 @@ const webpackConfig = module.exports = {
         test: /\.(scss|sass)$/,
         loader: 'happypack/loader?id=sass',
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
@@ -103,7 +106,7 @@ const webpackConfig = module.exports = {
       config.srcDir,
       'node_modules',
     ],
-    extensions: ['.json', '.js', '.jsx'],
+    extensions: ['.json', '.js', '.jsx', '.css', '.less', '.scss', '.sass'],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -120,6 +123,8 @@ const webpackConfig = module.exports = {
     new Loadable.ReactLoadablePlugin({
       filename: path.join(config.assetsDir, 'loadable-chunks.json'),
     }),
+
+    new BundleAnalyzerPlugin(),
 
     utils.happyPlugin('jsx', [
       {
@@ -264,7 +269,7 @@ const webpackConfig = module.exports = {
     ]),
 
   ],
-}
+};
 
 const validDlls = function (dllNames = 'vendor') {
   process.env.WEBPACK_DLLS = 'false'
