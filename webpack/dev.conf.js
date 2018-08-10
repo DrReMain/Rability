@@ -1,17 +1,15 @@
-require('babel-polyfill')
-const path = require('path')
-const fs = require('fs')
-const webpack = require('webpack')
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
-const Loadable = require('react-loadable/webpack')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const config = require('../config')
-const utils = require('./utils')
-const antTheme = require('../package').antTheme
+require('babel-polyfill');
+const path = require('path');
+const fs = require('fs');
+const webpack = require('webpack');
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+const Loadable = require('react-loadable/webpack');
+const config = require('../config');
+const utils = require('./utils');
+const antTheme = require('../package').antTheme;
 
 // universal-tools
-const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
-  require('./isomorphic'))
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic'));
 
 const webpackConfig = module.exports = {
   mode: 'development',
@@ -123,8 +121,6 @@ const webpackConfig = module.exports = {
     new Loadable.ReactLoadablePlugin({
       filename: path.join(config.assetsDir, 'loadable-chunks.json'),
     }),
-
-    new BundleAnalyzerPlugin(),
 
     utils.happyPlugin('jsx', [
       {
@@ -267,7 +263,6 @@ const webpackConfig = module.exports = {
         },
       },
     ]),
-
   ],
 };
 

@@ -1,20 +1,20 @@
-const path = require('path')
-const webpack = require('webpack')
-const CleanPlugin = require('clean-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
-const Loadable = require('react-loadable/webpack')
-const config = require('../config')
-const antTheme = require('../package').antTheme
+const path = require('path');
+const webpack = require('webpack');
+const CleanPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const Loadable = require('react-loadable/webpack');
+const config = require('../config');
+const antTheme = require('../package').antTheme;
 
 // universal-tools
-const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
-  require('./isomorphic'))
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic'));
 
-module.exports = {
+const conf = {
   mode: 'production',
   devtool: 'cheap-module-source-map',
   context: config.rootDir,
@@ -288,3 +288,9 @@ module.exports = {
     }),
   ],
 };
+
+if (process.env.BUNDLEANALYZER) {
+  conf.plugins.push(new BundleAnalyzerPlugin())
+}
+
+module.exports = conf;

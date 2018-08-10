@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const config = require('../config');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'development',
@@ -84,7 +83,5 @@ module.exports = {
       path: path.join(config.rootDir, './webpack/dlls/[name].json'),
       name: '_dll_[name]_[hash]',//和output.library中一致，也就是输出的manifest.json中的 name值
     }),
-
-    new BundleAnalyzerPlugin(),
   ],
 };
