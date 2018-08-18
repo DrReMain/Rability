@@ -9,8 +9,8 @@ module.exports = ({ file }) => ({
         url: asset => `./${asset.url}`,
       }, // [relative path](https://git.io/vplP2)
     ],
-    'postcss-aspect-ratio-mini': {},
-    'postcss-write-svg': { utf8: false },
+    // 'postcss-aspect-ratio-mini': {},
+    // 'postcss-write-svg': { utf8: false },
     'postcss-preset-env': {
       stage: 0,
       browsers: ['> 5%'],
