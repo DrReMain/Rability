@@ -1,0 +1,17 @@
+.git/
+.idea/
+node_modules/
+package-lock.json
+npm-error.log
+yarn.lock
+yarn-error.log
+static/dist/
+*.iml
+webpack-assets.json
+webpack-stats.json
+.happypack/
+webpack/dlls/*.json
+
+#
+*.report.html
+coverage/

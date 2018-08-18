@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import newRenderRoutes from '../../utils/newRenderRoutes';
+import { initClient } from '../../redux/modules/auth';
 
 import './global.less';
 import './App.less';
 
 const helmetConf = {
-  titleTemplate: 'App: %s',
-  meta: [{ charset: 'utf-8' }]
+  titleTemplate: '%s'
 };
 
+@provideHooks({
+  fetch: async ({ store: { dispatch }, client }) => {
+    await dispatch(initClient(client));
+  }
+})
 @connect()
 @withRouter
 export default class App extends Component {

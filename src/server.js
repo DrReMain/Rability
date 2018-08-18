@@ -113,6 +113,11 @@ proxy.on('proxyRes', proxyRes => {
   console.log('PROXY [response] from target: ', JSON.stringify(proxyRes.headers, true, 2));
 });
 
+proxy.on('proxyReq', (proxyReq, req) => {
+  const ip = req.headers['X-Forwarded-For'] || req.connection.remoteAddress;
+  proxyReq.setHeader('X-IP-Header', ip);
+});
+
 proxy.on('error', (error, req, res) => {
   if (error.code !== 'ECONNRESET') {
     console.error('proxy error', error);

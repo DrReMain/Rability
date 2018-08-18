@@ -9,8 +9,7 @@ const utils = require('./utils');
 const antTheme = require('../package').antTheme;
 
 // universal-tools
-const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
-  require('./isomorphic'))
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./isomorphic'));
 
 const webpackConfig = module.exports = {
   mode: 'development',

@@ -20,10 +20,11 @@ const Html = ({
         {head.script.toComponent()}
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
+        <meta charSet="utf-8" />
         <meta
           name="viewport"
           content="
-          width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover,minimal-ui"
+          width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"
         />
         <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes" />
         <meta name="mobile-web-app-capable" content="yes" />

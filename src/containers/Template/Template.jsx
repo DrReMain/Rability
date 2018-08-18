@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getMessage } from '../../redux/modules/asyncDemo';
 
-import './Template.less';
+import styles from './Template.less';
 
 @connect(
   state => ({
@@ -25,7 +25,7 @@ export default class Template extends Component {
 
   render() {
     const {
-      asyncDemo: { msg }
+      asyncDemo: { obj }
     } = this.props;
     return (
       <main className="template">
@@ -40,7 +40,13 @@ export default class Template extends Component {
         <header className="header" />
         {/* 主内容 */}
         <section className="content">
-          <h1>{msg}</h1>
+          <ul className={styles.ul}>
+            {Object.entries(obj).map(item => (
+              <li key={item}>
+                {item[0]}:{item[1]}
+              </li>
+            ))}
+          </ul>
           <button onClick={this.getHandler}>get demo</button>
           <p>111111111111111111</p>
         </section>
