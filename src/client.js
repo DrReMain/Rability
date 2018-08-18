@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import FastClick from 'fastclick';
 import React from 'react';
 import { hydrate as _hydrate } from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
@@ -16,14 +17,16 @@ import routes from './routes';
 import isOnline from './utils/isOnline';
 import asyncMatchRoutes from './utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from './components';
+import config from '../config';
 
 const persistConfig = {
   key: 'root',
-  storage: new CookieStorage(Cookies),
-  stateReconciler(inboundState, originalState) {
-    // Ignore state from cookies, only use preloadedState from window object
-    return originalState;
-  },
+  storage: new CookieStorage(Cookies, {
+    expiration: {
+      default: config.tokenExpiration
+    }
+  }),
+  stateReconciler: (inboundState, originalState) => originalState,
   whitelist: ['auth']
 };
 
@@ -83,6 +86,17 @@ const providers = {
 
   await Loadable.preloadReady();
 
+  // FastClick
+  if ('addEventListener' in document) {
+    document.addEventListener(
+      'DOMContentLoaded',
+      () => {
+        FastClick.attach(document.body);
+      },
+      false
+    );
+  }
+
   await hydrate(routes);
 
   // Hot reload
@@ -90,7 +104,7 @@ const providers = {
     module.hot.accept('./routes', () => {
       const nextRoutes = require('./routes').default;
       hydrate(nextRoutes).catch(err => {
-        console.error('Error on routes reload:', err);
+        console.error('ERROR on `routes.js` reload:', err);
       });
     });
   }

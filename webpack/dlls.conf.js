@@ -1,6 +1,6 @@
-const path = require('path')
-const webpack = require('webpack')
-const config = require('../config')
+const path = require('path');
+const webpack = require('webpack');
+const config = require('../config');
 
 module.exports = {
   mode: 'development',
@@ -70,7 +70,7 @@ module.exports = {
   output: {
     path: path.resolve(config.assetsDir, './dlls'),
     filename: 'dll_[name].js',
-    library: 'DLL_[name]_[hash]',
+    library: '_dll_[name]_[hash]',
   },
 
   performance: {
@@ -84,7 +84,7 @@ module.exports = {
 
     new webpack.DllPlugin({
       path: path.join(config.rootDir, './webpack/dlls/[name].json'),
-      name: 'DLL_[name]_[hash]',
+      name: '_dll_[name]_[hash]',//和output.library中一致，也就是输出的manifest.json中的 name值
     }),
   ],
-}
+};

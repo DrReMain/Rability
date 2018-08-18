@@ -1,18 +1,20 @@
 const path = require('path');
 
+const apiHOST = process.env.APIHOST || '127.0.0.1';
+const apiPORT = process.env.APIPORT || 3030;
+
 const environment = {
   development: {
     isProduction: false,
     assetsPath: `http://${process.env.HOST || 'localhost'}:${+process.env.PORT + 1 || 3001}/dist/`, // 开发环境内的静态资源路径
+    proxyUrl: `http://${apiHOST}:${apiPORT}`, // 开发环境api
   },
   production: {
     isProduction: true,
     assetsPath: '/dist/', // 生产环境内的静态资源路径
+    proxyUrl: 'https://xxx.xxx.xxx.xxx:xxx/xxx'
   },
 }[process.env.NODE_ENV || 'development'];
-
-const apiHOST = process.env.APIHOST || '127.0.0.1';
-const apiPORT = process.env.APIPORT || 3030;
 
 module.exports = Object.assign(
   {
@@ -27,10 +29,11 @@ module.exports = Object.assign(
     apiHOST,
     apiPORT,
 
-    proxyUrl: `http://${apiHOST}:${apiPORT}`,
-
     cssModules: true,
     css: '[name]_[local]__[hash:base64:5]',
+
+    // token有效期(s)
+    tokenExpiration: 6 * 60 * 60
   },
   environment,
 );

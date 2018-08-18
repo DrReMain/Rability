@@ -28,7 +28,7 @@ import createStore from '../src/redux/createStore';
 import request from './utils/request';
 import Html from '../src/utils/Html';
 import routes from './routes';
-import { getChunks, waitChunks } from '../src/utils/chunks';
+import { getChunks, waitChunks } from '../helps/chunks';
 import asyncMatchRoutes from '../src/utils/asyncMatchRoutes';
 import { ReduxAsyncConnect, Provider } from '../src/components';
 
@@ -97,7 +97,20 @@ app.use((req, res, next) => {
 
 // 转发api请求
 app.use('/api', (req, res) => {
-  proxy.web(req, res, { target: config.proxyUrl });
+  proxy.web(req, res, {
+    target: config.proxyUrl,
+    changeOrigin: true
+  });
+});
+
+proxy.on('proxyReq', (proxyReq, req) => {
+  const ip = req.headers['X-Forwarded-For'] || req.connection.remoteAddress;
+  proxyReq.setHeader('X-IP-Header', ip);
+  console.log('PROXY [request] path: ', proxyReq.path);
+});
+
+proxy.on('proxyRes', proxyRes => {
+  console.log('PROXY [response] from target: ', JSON.stringify(proxyRes.headers, true, 2));
 });
 
 proxy.on('error', (error, req, res) => {
@@ -129,8 +142,7 @@ app.use(async (req, res) => {
     key: 'root',
     storage: new CookieStorage(cookieJar, {
       expiration: {
-        // 数据持久化设定时限60秒
-        default: 60
+        default: config.tokenExpiration
       }
     }),
     stateReconciler: (inboundState, originalState) => originalState,
@@ -194,7 +206,7 @@ app.use(async (req, res) => {
     }
 
     const locationState = store.getState().router.location;
-    if (req.originalUrl !== locationState.pathname + locationState.search) {
+    if (decodeURIComponent(req.originalUrl) !== decodeURIComponent(locationState.pathname + locationState.search)) {
       return res.redirect(301, locationState.pathname);
     }
 

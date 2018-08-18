@@ -1,12 +1,12 @@
-require('babel-polyfill')
-const path = require('path')
-const fs = require('fs')
-const webpack = require('webpack')
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
-const Loadable = require('react-loadable/webpack')
-const config = require('../config')
-const utils = require('./utils')
-const antTheme = require('../package').antTheme
+require('babel-polyfill');
+const path = require('path');
+const fs = require('fs');
+const webpack = require('webpack');
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+const Loadable = require('react-loadable/webpack');
+const config = require('../config');
+const utils = require('./utils');
+const antTheme = require('../package').antTheme;
 
 // universal-tools
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
@@ -14,7 +14,7 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
 
 const webpackConfig = module.exports = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-eval-source-map',
   context: config.rootDir,
   entry: {
     'main': [
@@ -26,7 +26,6 @@ const webpackConfig = module.exports = {
     path: config.assetsDir,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].chunk.js',
-    // publicPath: `http://${config.staticHOST}:${config.staticPORT}/dist/`,
     publicPath: config.assetsPath,
   },
   performance: {
@@ -37,15 +36,16 @@ const webpackConfig = module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'happypack/loader?id=jsx',
-        include: [config.srcDir],
+        include: config.srcDir,
       }, {
         test: /\.json$/,
         loader: 'happypack/loader?id=json',
-        include: [config.srcDir],
+        include: config.srcDir,
       }, {
         test: /\.css$/,
         loader: 'happypack/loader?id=css',
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.css$/,
         loader: 'happypack/loader?id=nodecss',
@@ -54,6 +54,7 @@ const webpackConfig = module.exports = {
         test: /\.less$/,
         loader: 'happypack/loader?id=less',
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.less/,
         loader: 'happypack/loader?id=nodeless',
@@ -62,6 +63,7 @@ const webpackConfig = module.exports = {
         test: /\.(scss|sass)$/,
         loader: 'happypack/loader?id=sass',
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
@@ -103,7 +105,7 @@ const webpackConfig = module.exports = {
       config.srcDir,
       'node_modules',
     ],
-    extensions: ['.json', '.js', '.jsx'],
+    extensions: ['.json', '.js', '.jsx', '.css', '.less', '.scss', '.sass'],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -262,9 +264,8 @@ const webpackConfig = module.exports = {
         },
       },
     ]),
-
   ],
-}
+};
 
 const validDlls = function (dllNames = 'vendor') {
   process.env.WEBPACK_DLLS = 'false'
@@ -274,7 +275,7 @@ const validDlls = function (dllNames = 'vendor') {
         path.join(config.rootDir, `webpack/dlls/${dllName}.json`))
       const dll = fs.readFileSync(
         path.join(config.assetsDir, `dlls/dll_${dllName}.js`))
-        .toString('utf-8')
+      .toString('utf-8')
       if (dll.indexOf(manifest.name) < 0) {
         console.warn(`Invalid dll: ${dllName}`)
         return false

@@ -1,22 +1,23 @@
-const path = require('path')
-const webpack = require('webpack')
-const CleanPlugin = require('clean-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
-const Loadable = require('react-loadable/webpack')
-const config = require('../config')
-const antTheme = require('../package').antTheme
+const path = require('path');
+const webpack = require('webpack');
+const CleanPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const Loadable = require('react-loadable/webpack');
+const config = require('../config');
+const antTheme = require('../package').antTheme;
 
 // universal-tools
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
   require('./isomorphic'))
 
-module.exports = {
+const conf = {
   mode: 'production',
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   context: config.rootDir,
   entry: {
     main: [
@@ -38,6 +39,7 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -64,6 +66,7 @@ module.exports = {
           ],
         }),
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -121,6 +124,7 @@ module.exports = {
           ],
         }),
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.less/,
         loader: ExtractTextPlugin.extract({
@@ -154,7 +158,7 @@ module.exports = {
           ],
         }),
         include: /node_modules/,
-      },{
+      }, {
         test: /\.(scss|sass)$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -187,6 +191,7 @@ module.exports = {
           ],
         }),
         exclude: /node_modules/,
+        include: config.srcDir,
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
@@ -228,7 +233,7 @@ module.exports = {
       config.srcDir,
       'node_modules',
     ],
-    extensions: ['.json', '.js', '.jsx'],
+    extensions: ['.json', '.js', '.jsx', '.css', '.less', '.scss', '.sass'],
   },
   plugins: [
 
@@ -252,7 +257,9 @@ module.exports = {
 
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
-    new UglifyJsPlugin(),
+    new UglifyJsPlugin({
+      parallel: true,
+    }),
 
     new webpack.optimize.ModuleConcatenationPlugin(),
 
@@ -278,8 +285,13 @@ module.exports = {
 
       directoryIndex: '/',
       verbose: true,
-      navigateFallback: '/dist/index.html'
+      navigateFallback: '/dist/index.html',
     }),
-
   ],
+};
+
+if (process.env.BUNDLEANALYZER) {
+  conf.plugins.push(new BundleAnalyzerPlugin())
 }
+
+module.exports = conf;

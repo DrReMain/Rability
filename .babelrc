@@ -1,0 +1,39 @@
+{
+  "presets": [
+    "react",
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "IE >= 8"
+          ],
+          "node": "current"
+        },
+        "useBuiltIns": "entry"
+      }
+    ],
+    "stage-0"
+  ],
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd-mobile",
+        "style": true
+      }
+    ],
+    "transform-runtime",
+    "transform-decorators-legacy",
+    "react-loadable/babel",
+    "react-hot-loader/babel"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "transform-react-jsx-source"
+      ]
+    }
+  }
+}
