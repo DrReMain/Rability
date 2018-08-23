@@ -1,2 +1,2 @@
 #!/bin/sh
-yarn run postinstall:backup && yarn start
+npm run parallel-build && npm start

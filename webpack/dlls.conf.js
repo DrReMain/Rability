@@ -50,7 +50,7 @@ module.exports = {
       'redux',
       'react-redux',
       'react-router-dom',
-      'react-router-redux',
+      'connected-react-router',
       'redux-auth-wrapper',
       'axios',
       'multireducer',
