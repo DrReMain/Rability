@@ -35,21 +35,10 @@ const Html = ({
         <meta name="application-name" content="React App" />
         <meta name="theme-color" content="#000000" />
         {/* styles (will be present only in production with webpack extract text plugin) */}
-        {assets.styles &&
-          Object.keys(assets.styles).map(style => (
-            <link
-              href={assets.styles[style]}
-              key={style}
-              media="screen, projection"
-              rel="stylesheet"
-              type="text/css"
-              charSet="UTF-8"
-            />
-          ))}
+        {assets.styles
+          && Object.keys(assets.styles).map(style => <link href={assets.styles[style]} key={style} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8" />)}
         {/* (will be present only in development mode) */}
-        {assets.styles && Object.keys(assets.styles).length === 0 ? (
-          <style dangerouslySetInnerHTML={{ __html: '#content{display:none}' }} />
-        ) : null}
+        {assets.styles && Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{ __html: '#content{display:none}' }} /> : null}
       </head>
       <body>
         <div id="content" dangerouslySetInnerHTML={{ __html: content }} />

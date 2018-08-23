@@ -24,19 +24,18 @@ import { CookieStorage, NodeCookiesWrapper } from 'redux-persist-cookie-storage'
 import Cookies from 'cookies';
 
 import config from '../config';
-import createStore from '../src/redux/createStore';
+import createStore from './redux/createStore';
 import request from './utils/request';
-import Html from '../src/utils/Html';
+import Html from './utils/Html';
 import routes from './routes';
 import { getChunks, waitChunks } from '../helps/chunks';
-import asyncMatchRoutes from '../src/utils/asyncMatchRoutes';
-import { ReduxAsyncConnect, Provider } from '../src/components';
+import asyncMatchRoutes from './utils/asyncMatchRoutes';
+import { ReduxAsyncConnect, Provider } from './components';
 
 const pretty = new PrettyError();
 const chunksPath = path.join(__dirname, '..', 'static', 'dist', 'loadable-chunks.json');
 
-process.on('unhandledRejection', (reason, p) =>
-  console.error('Unhandled Rejection at: Promise ', p, pretty.render(reason)));
+process.on('unhandledRejection', (reason, p) => console.error('Promise unhandledRejection', p, pretty.render(reason)));
 
 const app = express();
 const server = new http.Server(app);
@@ -218,9 +217,7 @@ app.use(async (req, res) => {
     }
 
     const bundles = getBundles(getChunks(), modules);
-    const html = (
-      <Html assets={global.webpackIsomorphicTools.assets()} bundles={bundles} content={content} store={store} />
-    );
+    const html = <Html assets={global.webpackIsomorphicTools.assets()} bundles={bundles} content={content} store={store} />;
 
     res.status(200).send(`<!doctype html>${ReactDOMServer.renderToString(html)}`);
   } catch (mountError) {

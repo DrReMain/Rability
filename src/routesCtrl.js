@@ -1,4 +1,4 @@
-import { routerActions } from 'react-router-redux';
+import { replace } from 'connected-react-router';
 import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper';
 
@@ -8,7 +8,7 @@ const locationHelper = locationHelperBuilder({});
 export const isAuthenticated = connectedReduxRedirect({
   redirectPath: '/login',
   authenticatedSelector: state => state.auth.data !== null,
-  redirectAction: routerActions.replace,
+  redirectAction: replace,
   wrapperDisplayName: 'UserIsAuthenticated'
 });
 
@@ -16,7 +16,7 @@ export const isAuthenticated = connectedReduxRedirect({
 export const isBind = connectedReduxRedirect({
   redirectPath: (globalState, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',
   authenticatedSelector: state => state.auth.data !== null && !state.auth.data.mobileBind,
-  redirectAction: routerActions.replace,
+  redirectAction: replace,
   wrapperDisplayName: 'UserIsBind',
   allowRedirectBack: false
 });

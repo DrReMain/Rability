@@ -31,7 +31,7 @@
     ],
     "max-len": [
       "error",
-      120,
+      180,
       {
         "ignorePattern": "[^\\n\\r]{115,120}\\{(?:'|\") (?:'|\")\\}"
       }
@@ -43,6 +43,7 @@
     "no-underscore-dangle": "off",
     "prefer-promise-reject-errors": "off",
     "prefer-template": "warn",
+    "react/destructuring-assignment": "off",
     "react/forbid-prop-types": "warn",
     "react/jsx-closing-tag-location": "off",
     "react/jsx-filename-extension": "off",
@@ -55,6 +56,7 @@
     ],
     "react/no-unescaped-entities": "off",
     "react/prefer-stateless-function": "warn",
+    "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": [
       "error",
       {

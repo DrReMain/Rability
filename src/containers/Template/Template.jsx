@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { Button } from 'antd-mobile';
 import { getMessage } from '../../redux/modules/asyncDemo';
 
 import styles from './Template.less';
@@ -43,11 +44,13 @@ export default class Template extends Component {
           <ul className={styles.ul}>
             {Object.entries(obj).map(item => (
               <li key={item}>
-                {item[0]}:{item[1]}
+                {item[0]}
+:
+                {item[1]}
               </li>
             ))}
           </ul>
-          <button onClick={this.getHandler}>get demo</button>
+          <Button onClick={this.getHandler}>get demo</Button>
           <p>111111111111111111</p>
         </section>
         {/* 尾导航 */}

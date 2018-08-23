@@ -1,4 +1,6 @@
-import { createStore as _createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import {
+  createStore as _createStore, applyMiddleware, compose, combineReducers
+} from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createPersistoid, persistCombineReducers, REGISTER } from 'redux-persist';
 import clientMiddleware from './middleware/clientMiddleware';
@@ -23,13 +25,12 @@ export function inject(store, reducers, persistConfig) {
 function getNoopReducers(reducers, data) {
   if (!data) return {};
   return Object.keys(data).reduce(
-    (prev, next) =>
-      reducers[next]
-        ? prev
-        : {
-          ...prev,
-          [next]: (state = {}) => state
-        },
+    (prev, next) => reducers[next]
+      ? prev
+      : {
+        ...prev,
+        [next]: (state = {}) => state
+      },
     {}
   );
 }
@@ -53,10 +54,7 @@ export default function ({
   const finalCreateStore = compose(...enhancers)(_createStore);
   const reducers = createReducers();
   const noopReducers = getNoopReducers(reducers, data);
-  const store = finalCreateStore(
-    connectRouter(history)(combine({ ...noopReducers, ...reducers }, persistConfig)),
-    data
-  );
+  const store = finalCreateStore(connectRouter(history)(combine({ ...noopReducers, ...reducers }, persistConfig)), data);
 
   store.asyncReducers = {};
   store.inject = _reducers => inject(store, _reducers, persistConfig);
