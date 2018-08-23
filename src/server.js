@@ -13,7 +13,7 @@ import PrettyError from 'pretty-error';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { renderRoutes } from 'react-router-config';
 import createMemoryHistory from 'history/createMemoryHistory';
 import Loadable from 'react-loadable';
@@ -64,6 +64,7 @@ if (__DEVELOPMENT__) {
   morganConf = ['combined', { stream: accessLogStream }];
 }
 
+app.set('trust proxy', true);
 app
   .use(morgan(...morganConf))
   .use(cookieParser())
@@ -91,6 +92,11 @@ app.use('/dist/dlls/:dllName.js', (req, res, next) => {
 app.use(express.static(path.join(__dirname, '..', 'static')));
 
 app.use((req, res, next) => {
+  // console.log('headers = ', JSON.stringify(req.headers)); // 包含了各种header，包括x-forwarded-for(如果被代理过的话)
+  // console.log('x-forwarded-for = ', req.header('x-forwarded-for')); // 各阶段ip的CSV, 最左侧的是原始ip
+  // console.log('ips = ', JSON.stringify(req.ips)); // 相当于(req.header('x-forwarded-for') || '').split(',')
+  // console.log('remoteAddress = ', req.connection.remoteAddress); // 未发生代理时，请求的ip
+  // console.log('ip = ', req.ip); // 同req.connection.remoteAddress, 但是格式要好一些
   res.setHeader('X-Forwarded-For', req.ip);
   return next();
 });
@@ -105,17 +111,13 @@ app.use('/api', (req, res) => {
 
 proxy.on('proxyReq', (proxyReq, req) => {
   const ip = req.headers['X-Forwarded-For'] || req.connection.remoteAddress;
+  // console.log('proxy_ip', ip);
   proxyReq.setHeader('X-IP-Header', ip);
   console.log('PROXY [request] path: ', proxyReq.path);
 });
 
 proxy.on('proxyRes', proxyRes => {
   console.log('PROXY [response] from target: ', JSON.stringify(proxyRes.headers, true, 2));
-});
-
-proxy.on('proxyReq', (proxyReq, req) => {
-  const ip = req.headers['X-Forwarded-For'] || req.connection.remoteAddress;
-  proxyReq.setHeader('X-IP-Header', ip);
 });
 
 proxy.on('error', (error, req, res) => {

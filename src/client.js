@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import FastClick from 'fastclick';
 import React from 'react';
 import { hydrate as _hydrate } from 'react-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { renderRoutes } from 'react-router-config';
 import { trigger } from 'redial';
 import createBrowserHistory from 'history/createBrowserHistory';

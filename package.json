@@ -1,6 +1,6 @@
 {
   "name": "rability",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "main": "bin/server.js",
   "author": "Dr.ReMain <51071534@qq.com>",
   "license": "MIT",
@@ -41,6 +41,7 @@
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
     "compression": "^1.7.3",
+    "connected-react-router": "^4.4.1",
     "cookie-parser": "^1.4.3",
     "cookies": "^0.7.1",
     "cookies-js": "^1.2.3",
@@ -74,7 +75,6 @@
     "react-redux": "^5.0.7",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.3.1",
-    "react-router-redux": "^5.0.0-alpha.9",
     "react-transition-group": "^2.4.0",
     "recompose": "^0.27.0",
     "redial": "^0.5.0",
@@ -154,7 +154,7 @@
     ]
   },
   "antTheme": {
-    "brand-primary": "red",
+    "brand-primary": "#4cadff",
     "color-text-base":  "#333"
   }
 }

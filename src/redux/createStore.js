@@ -1,5 +1,5 @@
 import { createStore as _createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createPersistoid, persistCombineReducers, REGISTER } from 'redux-persist';
 import clientMiddleware from './middleware/clientMiddleware';
 import createReducers from './reducer';
@@ -53,7 +53,10 @@ export default function ({
   const finalCreateStore = compose(...enhancers)(_createStore);
   const reducers = createReducers();
   const noopReducers = getNoopReducers(reducers, data);
-  const store = finalCreateStore(combine({ ...noopReducers, ...reducers }, persistConfig), data);
+  const store = finalCreateStore(
+    connectRouter(history)(combine({ ...noopReducers, ...reducers }, persistConfig)),
+    data
+  );
 
   store.asyncReducers = {};
   store.inject = _reducers => inject(store, _reducers, persistConfig);
@@ -70,7 +73,7 @@ export default function ({
     module.hot.accept('./reducer', () => {
       let reducer = require('./reducer');
       reducer = combine((reducer.__esModule ? reducer.default : reducer)(store.asyncReducers), persistConfig);
-      store.replaceReducer(reducer);
+      store.replaceReducer(connectRouter(history)(reducer));
     });
   }
 
